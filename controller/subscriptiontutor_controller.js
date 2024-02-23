@@ -3,10 +3,10 @@ const TutorPlanServices = require('../service/subscriptiontutor_service');
 
 exports.CreateTutorPlan = async (req, res, next) => {
     try {
-        const { tutorsub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count } = req.body;
+        const { sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count } = req.body;
 
         const Res = await TutorPlanServices.registerTutorPlan(tutor_id,fname,plan_name,plancost,status,tnx_id,date,count);
-        let TutorplanData = { tutorsub_id,tutor_id,fname,plan_name,plancost : plancost,status,tnx_id,date,count };
+        let TutorplanData = { sub_id,tutor_id,fname,plan_name,plancost : plancost,status,tnx_id,date,count };
         res.status(200).json(TutorplanData)
 
     } catch (error) {
@@ -16,8 +16,8 @@ exports.CreateTutorPlan = async (req, res, next) => {
 
 exports.Update = async (req,res, next) => {
     try {
-        const { tutorsub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count} = req.body;
-        const updateData = await TutorPlanServices.updateTutorPlan(tutorsub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count);
+        const { sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count} = req.body;
+        const updateData = await TutorPlanServices.updateTutorPlan(sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count);
         res.status(200).json(updateData)
     } catch (error) {
         next (error);
@@ -27,8 +27,8 @@ exports.Update = async (req,res, next) => {
 
 exports.delete = async(req, res, next)=>{
     try{
-        const{tutorsub_id} = req.query;
-        const deleteData = await TutorPlanServices.deleteTutorPlan(tutorsub_id);
+        const{sub_id} = req.query;
+        const deleteData = await TutorPlanServices.deleteTutorPlan(sub_id);
         res.status(200).json(deleteData)
     }catch(error){
         next(error)
@@ -37,8 +37,8 @@ exports.delete = async(req, res, next)=>{
 
 exports.getId = async(req,res,next) => {
     try {
-        const {tutorsub_id} = req.query;
-        const User = await TutorPlanServices.getTutorPlan(tutorsub_id);
+        const {sub_id} = req.query;
+        const User = await TutorPlanServices.getTutorPlan(sub_id);
         res.status(200).json(User)
     } catch (error) {
         next(error);

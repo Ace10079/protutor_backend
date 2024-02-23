@@ -4,7 +4,7 @@ const db = require('../config/db');
 const {Schema } = mongoose;
 
 const TutorSubscriptionSchema = new Schema({
-    tutorsub_id :{
+    sub_id :{
         type : String,
         required : true,
     },

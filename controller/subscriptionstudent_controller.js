@@ -3,10 +3,10 @@ const StudentPlanServices = require('../service/subscriptionstudent_service');
 
 exports.CreateStudentPlan = async (req, res, next) => {
     try {
-        const { studentsub_id,student_id,fname,planname,plancost,status,tnxid,date,count } = req.body;
+        const { sub_id,student_id,fname,planname,plancost,status,tnxid,date,count } = req.body;
 
         const Res = await StudentPlanServices.registerStudentPlan(student_id,fname,planname,plancost,status,tnxid,date,count);
-        let StudentplanData = { studentsub_id,student_id,fname,planname,plancost : plancost,status,tnxid,date,count };
+        let StudentplanData = { sub_id,student_id,fname,planname,plancost : plancost,status,tnxid,date,count };
         res.status(200).json(StudentplanData)
 
     } catch (error) {
@@ -16,8 +16,8 @@ exports.CreateStudentPlan = async (req, res, next) => {
 
 exports.Update = async (req,res, next) => {
     try {
-        const { studentsub_id,student_id,fname,planname,plancost,status,tnxid,date,count} = req.body;
-        const updateData = await StudentPlanServices.updateStudentPlan(studentsub_id,student_id,fname,planname,plancost,status,tnxid,date,count);
+        const { sub_id,student_id,fname,planname,plancost,status,tnxid,date,count} = req.body;
+        const updateData = await StudentPlanServices.updateStudentPlan(sub_id,student_id,fname,planname,plancost,status,tnxid,date,count);
         res.status(200).json(updateData)
     } catch (error) {
         next (error);
@@ -27,8 +27,8 @@ exports.Update = async (req,res, next) => {
 
 exports.delete = async(req, res, next)=>{
     try{
-        const{studentsub_id} = req.query;
-        const deleteData = await StudentPlanServices.deleteStudentPlan(studentsub_id);
+        const{sub_id} = req.query;
+        const deleteData = await StudentPlanServices.deleteStudentPlan(sub_id);
         res.status(200).json(deleteData)
     }catch(error){
         next(error)
@@ -37,8 +37,8 @@ exports.delete = async(req, res, next)=>{
 
 exports.getId = async(req,res,next) => {
     try {
-        const {studentsub_id} = req.query;
-        const User = await StudentPlanServices.getStudentPlan(studentsub_id);
+        const {sub_id} = req.query;
+        const User = await StudentPlanServices.getStudentPlan(sub_id);
         res.status(200).json(User)
     } catch (error) {
         next(error);

@@ -4,17 +4,17 @@ const IdcodeServices = require("./idcode_service");
 class TutorPlanServices{
     static async registerTutorPlan(tutor_id,fname,plan_name,plancost,status,tnx_id,date,count){
         try{
-            var tutorsub_id = await IdcodeServices.generateCode("TutorPlan");
-            const createUser = new TutorPlanModel({tutorsub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count});
+            var sub_id = await IdcodeServices.generateCode("TutorPlan");
+            const createUser = new TutorPlanModel({sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count});
             return await createUser.save();
         }catch(err){
             throw err;
         }
     }
 
-    static async updateTutorPlan(tutorsub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count){
+    static async updateTutorPlan(sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count){
         try {
-            var query = {tutorsub_id :tutorsub_id};
+            var query = {sub_id :sub_id};
             var values = {$set : {tutor_id : tutor_id,fname : fname,plan_name : plan_name,plancost : plancost,status : status,tnx_id : tnx_id,date : date,count:count}};
 
             
@@ -25,9 +25,9 @@ class TutorPlanServices{
         }
     }
 
-    static async deleteTutorPlan(tutorsub_id){
+    static async deleteTutorPlan(sub_id){
         try{
-            var query = {tutorsub_id : tutorsub_id};
+            var query = {sub_id : sub_id};
             return await TutorPlanModel.findOneAndDelete(query);
 
         }catch(error){
@@ -35,10 +35,10 @@ class TutorPlanServices{
         }
     }
 
-    static async getTutorPlan(tutorsub_id){
+    static async getTutorPlan(sub_id){
         try {
             
-            return await TutorPlanModel.findOne({tutorsub_id})
+            return await TutorPlanModel.findOne({sub_id})
         } catch (error) {
             throw error
         }
