@@ -63,3 +63,17 @@ exports.getparentId = async(req,res,next) => {
         next(error);
     }
 }
+
+exports.generatemail = async (req, res) => {
+    try {
+       
+        const { sub_id } = req.query;
+
+        const { date, plancost, fname, tnx_id, count, plan_name } = req.body;
+       
+        const result = await ParentPlanServices.sendOTPEmail(sub_id, date, plancost, fname, tnx_id, count, plan_name);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

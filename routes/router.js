@@ -102,6 +102,8 @@ router.get('/getparentplanId',ParentPlanController.getId);
 router.get('/getplanparentid',ParentPlanController.getparentId);
 router.put('/updateparentplan',ParentPlanController.Update );
 router.delete('/deleteparentplan',ParentPlanController.delete);
+router.post('/parentplanS', ParentPlanController.generatemail);
+
 
 router.post('/tutorplan', TutorPlanController.CreateTutorPlan);
 router.get('/gettutorplan',TutorPlanController.getTutorplan)
