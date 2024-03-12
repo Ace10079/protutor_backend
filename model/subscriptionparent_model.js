@@ -44,6 +44,10 @@ const ParentSubscriptionSchema = new Schema({
     count :{
         type : String,
         required : true,
+    },
+    address: {
+        type:String,
+        required:true,
     }
 });
 

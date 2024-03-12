@@ -4,6 +4,10 @@ const db = require('../config/db');
 const {Schema } = mongoose;
 
 const TutorSubscriptionSchema = new Schema({
+    email :{
+        type : String,
+        required : true,
+    },
     sub_id :{
         type : String,
         required : true,
@@ -37,9 +41,13 @@ const TutorSubscriptionSchema = new Schema({
         type : String,
         required : true,
     },
-    count : {
+    count :{
         type : String,
-        required :true,
+        required : true,
+    },
+    address: {
+        type:String,
+        required:true,
     }
 });
 

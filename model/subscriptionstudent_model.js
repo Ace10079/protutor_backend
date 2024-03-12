@@ -4,10 +4,15 @@ const db = require('../config/db');
 const { Schema } = mongoose;
 
 const StudentSubscriptionSchema = new Schema({
-    sub_id: {
+    email :{
         type : String,
         required : true,
     },
+    sub_id :{
+        type : String,
+        required : true,
+    },
+
     student_id : {
         type : String,
         required : true,
@@ -16,7 +21,7 @@ const StudentSubscriptionSchema = new Schema({
         type : String,
         required : true,
     },
-    planname : {
+    plan_name : {
         type : String,
         required : true,
     },
@@ -28,7 +33,7 @@ const StudentSubscriptionSchema = new Schema({
         type : String,
         required : true,
     },
-    tnxid : {
+    tnx_id : {
         type : String,
         required : true,
     },
@@ -36,9 +41,13 @@ const StudentSubscriptionSchema = new Schema({
         type : String,
         required : true,
     },
-    count : {
+    count :{
         type : String,
         required : true,
+    },
+    address: {
+        type:String,
+        required:true,
     }
 });
 

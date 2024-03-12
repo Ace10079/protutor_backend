@@ -2,20 +2,20 @@ const TutorPlanModel =require('../model/subscriptiontutor_model')
 const IdcodeServices = require("./idcode_service");
 
 class TutorPlanServices{
-    static async registerTutorPlan(tutor_id,fname,plan_name,plancost,status,tnx_id,date,count){
+    static async registerTutorPlan(email,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count,address){
         try{
             var sub_id = await IdcodeServices.generateCode("TutorPlan");
-            const createUser = new TutorPlanModel({sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count});
+            const createUser = new TutorPlanModel({sub_id,email,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count,address});
             return await createUser.save();
         }catch(err){
             throw err;
         }
     }
 
-    static async updateTutorPlan(sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count){
+    static async updateTutorPlan(sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count,address){
         try {
             var query = {sub_id :sub_id};
-            var values = {$set : {tutor_id : tutor_id,fname : fname,plan_name : plan_name,plancost : plancost,status : status,tnx_id : tnx_id,date : date,count:count}};
+            var values = {$set : {tutor_id : tutor_id,fname : fname,plan_name : plan_name,plancost : plancost,status : status,tnx_id : tnx_id,date : date,count:count,address:address}};
 
             
             return await TutorPlanModel.updateOne(query,values)
