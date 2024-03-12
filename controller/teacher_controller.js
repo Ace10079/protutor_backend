@@ -83,6 +83,18 @@ exports.creditUpdate = async (req,res,next) => {
     }
 }
 
+exports.verifyUpdate = async (req,res,next) => {
+    try {
+        const {tutor_id} = req.query
+        const { verification } = req.body;
+        const updateOne = await TeacherService.verificationUpdate(tutor_id,verification);
+        res.status(200).json(updateOne);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error:"Internal Server Error"});
+    }
+}
+
 exports.teacherDelete = async (req,res,next)=> {
     try {
        const {tutor_id:tutor_id } = req.query;

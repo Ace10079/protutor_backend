@@ -80,6 +80,20 @@ class TeacherService {
         }
     }
 
+    static async verificationUpdate(tutor_id,verification){
+        try {
+            var query = {tutor_id:tutor_id};
+            var values = {
+                $set:{
+                    verification:verification,
+                }
+            };
+            return await TeacherModel.updateOne(query,values);
+        } catch (error) {
+           throw error; 
+        }
+    }
+
     static async deleteTeacher(tutor_id){
         try {
             var query = {tutor_id:tutor_id};
