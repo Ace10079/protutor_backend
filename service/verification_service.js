@@ -1,7 +1,14 @@
 const VerficationModel = require("../model/verification_model");
 
 class VerificationService {
-  static async documents(tutor_id, cv, certificate, id_proof, address_proof,comment) {
+  static async documents(
+    tutor_id,
+    cv,
+    certificate,
+    id_proof,
+    address_proof,
+    comment
+  ) {
     try {
       const newdocuments = new VerficationModel({
         tutor_id,
@@ -9,39 +16,90 @@ class VerificationService {
         certificate,
         id_proof,
         address_proof,
-        comment
+        comment,
       });
 
-      return  await newdocuments.save()
-
+      return await newdocuments.save();
     } catch (error) {
       throw error;
     }
   }
 
-  static async CommentUpdate(tutor_id,comment){
+  static async CommentUpdate(tutor_id, comment) {
     try {
-        var query = {tutor_id:tutor_id};
-        var values = {
-            $set:{
-                comment:comment,
-            }
-        };
-        return await VerficationModel.updateOne(query,values);
+      var query = { tutor_id: tutor_id };
+      var values = {
+        $set: {
+          comment: comment,
+        },
+      };
+      return await VerficationModel.updateOne(query, values);
     } catch (error) {
-       throw error; 
+      throw error;
     }
-}
+  }
 
-  static async getTutorId(tutor_id){
+  static async getTutorId(tutor_id) {
     try {
-        return await VerficationModel.find({tutor_id})
+      return await VerficationModel.find({ tutor_id });
     } catch (error) {
-        throw error
+      throw error;
     }
-}
-}
+  }
 
+  static async updatedocuments(
+    tutor_id,
+    cv,
+    certificate,
+    id_proof,
+    address_proof
+  ) {
+    try {
+      const update = await VerficationModel.findOneAndUpdate(
+        { tutor_id },
+        { $set: { cv, certificate, id_proof, address_proof } },
+        { new: true }
+      );
+      return update;
+    } catch (error) {
+      throw error;
+    }
+  }
 
+  static async updatedocuments(
+    tutor_id,
+    cv,
+    certificate,
+    id_proof,
+    address_proof
+  ) {
+    try {
+      const updateQuery = { tutor_id };
+      const updateFields = {};
+
+      if (cv) {
+        updateFields.cv = cv;
+      }
+      if (certificate) {
+        updateFields.certificate = certificate;
+      }
+      if (id_proof) {
+        updateFields.id_proof = id_proof;
+      }
+      if (address_proof) {
+        updateFields.address_proof = address_proof;
+      }
+
+      const update = await VerficationModel.findOneAndUpdate(
+        updateQuery,
+        { $set: updateFields },
+        { new: true }
+      );
+      return update;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
 
 module.exports = VerificationService;

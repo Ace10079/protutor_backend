@@ -142,6 +142,7 @@ router.post("/feedback", feadbackController.feadback);
 
 router.post("/documents", documents, DocumentsController.documents);
 router.get('/getdocument', DocumentsController.get)
-router.put('/commentUpdate',DocumentsController.CommentUpdate)
+router.put('/commentUpdate',DocumentsController.CommentUpdate);
+router.put('/docsupdate' ,documents,DocumentsController.updateDocs);
 
 module.exports = router;
