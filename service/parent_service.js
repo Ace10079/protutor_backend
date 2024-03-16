@@ -1,4 +1,5 @@
 const ParentModel = require('../model/parent_model');
+const ViewParentModel = require('../model/viewedParent_model');
 const IdcodeServices = require('./idcode_service');
 const bcrypt = require('bcrypt');
 
@@ -33,29 +34,29 @@ class ParentService {
         }
     }
 
-    static async reduceCredit(parent_id){
-        try {
-            const parent = await ParentModel.findOne({ parent_id });
+    // static async reduceCredit(parent_id){
+    //     try {
+    //         const parent = await ParentModel.findOne({ parent_id });
    
-            if (!parent) {
-            return { message: "Parent not found" };
-            }
+    //         if (!parent) {
+    //         return { message: "Parent not found" };
+    //         }
     
-            if (parent.credits > 0) {
+    //         if (parent.credits > 0) {
               
-                parent.credits--;
-                await parent.save();
-                return { count: parent.credits };
-            } else {
+    //             parent.credits--;
+    //             await parent.save();
+    //             return { count: parent.credits };
+    //         } else {
                
-                return { message: "Count is already zero" };
-            }
-        } catch (error) {
+    //             return { message: "Count is already zero" };
+    //         }
+    //     } catch (error) {
           
-            console.error('Error decreasing credits:', error);
-            throw new Error('Error decreasing credits');
-        }
-    };
+    //         console.error('Error decreasing credits:', error);
+    //         throw new Error('Error decreasing credits');
+    //     }
+    // };
 
     static async loginParent(email){
         try {
@@ -133,6 +134,40 @@ class ParentService {
            throw error 
         }
     }
+
+    static async reduceCredit(parent_id, tutor_id) {
+        try {
+            const parent = await ParentModel.findOne({ parent_id });
+    
+            if (!parent) {
+                return { message: "Parent not found" };
+            }
+    
+         
+            const viewParent = await ViewParentModel.findOne({ parent_id });
+            if (viewParent && viewParent.viewed.includes(tutor_id)) {
+                return { message: "Tutor already followed" };
+            }
+    
+            if (parent.credits > 0) {
+                parent.credits--;
+                await parent.save();
+    
+                // If tutor_id is not already followed, add it to the following array
+                if (viewParent) {
+                    viewParent.viewed.push(tutor_id);
+                    await viewParent.save();
+                }
+    
+                return { count: parent.credits };
+            } else {
+                return { message: "Count is already zero" };
+            }
+        } catch (error) {
+            console.error('Error decreasing credits:', error);
+            throw new Error('Error decreasing credits');
+        }
+    };
 
 }
 

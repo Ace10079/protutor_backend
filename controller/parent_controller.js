@@ -123,24 +123,24 @@ exports.changePassword = async(req, res, next)=>{
     }
 }
 
-exports.parentCredit = async (req, res, next) => {
-    try {
-        const { parent_id } = req.body; 
+// exports.parentCredit = async (req, res, next) => {
+//     try {
+//         const { parent_id } = req.body; 
 
-        const result = await ParentService.reduceCredit(parent_id);
+//         const result = await ParentService.reduceCredit(parent_id);
 
-        if (result.message) {
+//         if (result.message) {
           
-            res.json({ message: result.message });
-        } else {
+//             res.json({ message: result.message });
+//         } else {
             
-            res.json({ count: result.count });
-        }
-    } catch (error) {
-        console.error('Error in parentCredits:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-};
+//             res.json({ count: result.count });
+//         }
+//     } catch (error) {
+//         console.error('Error in parentCredits:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// };
 
 exports.verifyphone = async(req, res, next)=>{
     try{
@@ -196,5 +196,21 @@ exports.get = async (req,res,next) => {
         res.status(200).json(getData)
     } catch (error) {
         next (error)
+    }
+}
+
+exports.parentCredit = async (req, res, next) => {
+    try {
+        const { parent_id, tutor_id } = req.body; 
+        const result = await ParentService.reduceCredit(parent_id, tutor_id);
+
+        if (result.message) {
+            res.json({ message: result.message });
+        } else {
+            res.json({ count: result.count });
+        }
+    } catch (error) {
+        console.error('Error decreasing credits:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 }

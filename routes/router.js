@@ -17,6 +17,7 @@ const StudentPlanController = require("../controller/subscriptionstudent_control
 const WishListController = require("../controller/wishlist_controller");
 const TeacherWishController = require("../controller/teacher_wishlist_controller");
 const DocumentsController = require("../controller/verification_controller");
+const viewParentController = require("../controller/viewParent_controller")
 const { runInContext } = require("vm");
 
 const storage = multer.diskStorage({
@@ -144,5 +145,7 @@ router.post("/documents", documents, DocumentsController.documents);
 router.get('/getdocument', DocumentsController.get)
 router.put('/commentUpdate',DocumentsController.CommentUpdate);
 router.put('/docsupdate' ,documents,DocumentsController.updateDocs);
+
+router.post('/viewParent/:parent_id',viewParentController.ParentView);
 
 module.exports = router;
