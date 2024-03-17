@@ -146,6 +146,7 @@ router.get('/getdocument', DocumentsController.get)
 router.put('/commentUpdate',DocumentsController.CommentUpdate);
 router.put('/docsupdate' ,documents,DocumentsController.updateDocs);
 
-router.post('/viewParent/:parent_id',viewParentController.ParentView);
+router.post('/createviewParent',viewParentController.register);
+// router.post('/viewParent/:parent_id',viewParentController.ParentView);
 
 module.exports = router;
