@@ -114,25 +114,6 @@ exports.teacherGet = async (req,res,next)=>{
     }
 }
 
-// exports.teacherCredit = async (req, res, next) => {
-//     try {
-//         const { tutor_id } = req.body; 
-
-//         const result = await TeacherService.reduceCredit(tutor_id);
-
-//         if (result.message) {
-          
-//             res.json({ message: result.message });
-//         } else {
-            
-//             res.json({ count: result.count });
-//         }
-//     } catch (error) {
-//         console.error('Error in parentCredits:', error);
-//         res.status(500).json({ error: 'Internal server error' });
-//     }
-// };
-
 exports.get = async (req,res,next) => {
     try {
         const getData = await TeacherService.Teacher()

@@ -12,3 +12,13 @@ exports.register = async (req, res, next) => {
         next(error)
     }
 }
+
+exports.get = async(req,res,next) => {
+    try {
+        const {student_id} = req.query;
+        const User = await viewStudent_service.get(student_id);
+        res.status(200).json(User)
+    } catch (error) {
+        next(error);
+    }
+}

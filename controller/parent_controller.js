@@ -84,19 +84,6 @@ exports.parentDelete = async (req,res,next) =>{
     }
 }
 
-// exports.parentCredits = async (req,res,next) => {
-//     try {
-//         const parent =  await ParentModel.findOneAndUpdate({},{$inc:{credits:-1}},{new : true});
-//         parent.credits = parseInt(parent.credits);
-//         console(parent);
-//         res.json({credits:parent.credits});
-        
-//     } catch (error) {
-//         console.error('Error decreasing credits:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-  
-//     }
-// }
 exports.parentCredits = async (req,res,next) => {
     try {
         const result = ParentService.reduceCount();

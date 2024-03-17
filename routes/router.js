@@ -18,10 +18,8 @@ const WishListController = require("../controller/wishlist_controller");
 const TeacherWishController = require("../controller/teacher_wishlist_controller");
 const DocumentsController = require("../controller/verification_controller");
 const viewParentController = require("../controller/viewParent_controller");
-const ViewStudentController = require('../controller/viewStudent_controller');
-const ViewTutorController = require('../controller/viewTutor_controller');
-
-const { runInContext } = require("vm");
+const ViewStudentController = require("../controller/viewStudent_controller");
+const ViewTutorController = require("../controller/viewTutor_controller");
 
 const storage = multer.diskStorage({
   destination: "./image",
@@ -35,10 +33,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).single("Profile");
 const upload1 = multer({ storage: storage }).single("categoryimage");
-//const parent = multer({storage: storage}).single('image');
 const plan = multer({ storage: storage }).single("planimage");
 const teacher = multer({ storage: storage }).single("teacherimage");
-//const upload1 = multer({storage: storage}).array('Categories', 4)
 
 const documents = multer({ storage: storage }).fields([
   { name: "cv", maxCount: 1 },
@@ -137,21 +133,25 @@ router.delete("/deletewish", WishListController.wishdelete);
 router.post("/wishlistRegister", WishListController.wishListRegister);
 router.get("/wishlistget", WishListController.get);
 router.delete("/teacherwishdelete", TeacherWishController.teacherwishdelete);
-router.post("/teahcerwishlistRegister",TeacherWishController.teacherWishListRegister);
+router.post(
+  "/teahcerwishlistRegister",
+  TeacherWishController.teacherWishListRegister
+);
 router.get("/teacherwishlist", TeacherWishController.get);
 router.post("/feedback", feadbackController.feadback);
 
 router.post("/documents", documents, DocumentsController.documents);
-router.get('/getdocument', DocumentsController.get)
-router.put('/commentUpdate',DocumentsController.CommentUpdate);
-router.put('/docsupdate' ,documents,DocumentsController.updateDocs);
+router.get("/getdocument", DocumentsController.get);
+router.put("/commentUpdate", DocumentsController.CommentUpdate);
+router.put("/docsupdate", documents, DocumentsController.updateDocs);
 
-router.post('/createviewParent',viewParentController.register);
+router.post("/createviewParent", viewParentController.register);
+router.get("/viewedParent", viewParentController.get);
 
-router.post('/createviewParent',viewParentController.register);
+router.post("/createviewStudent", ViewStudentController.register);
+router.get("/viewedStudent", ViewStudentController.get);
 
-router.post('/createviewStudent',ViewStudentController.register);
-
-router.post('/createviewTutor',ViewTutorController.register);
+router.post("/createviewTutor", ViewTutorController.register);
+router.get("/viewedTutor", ViewTutorController.get);
 
 module.exports = router;

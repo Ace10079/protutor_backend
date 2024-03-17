@@ -14,6 +14,15 @@ class viewStudent_service {
       throw error;
     }
   }
+
+  static async get(student_id){
+    try {
+        
+        return await ViewStudentModel.findOne({student_id})
+    } catch (error) {
+        throw error
+    }
+}
 }
 
 module.exports = viewStudent_service;

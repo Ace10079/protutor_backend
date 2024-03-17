@@ -4,7 +4,7 @@ const CategoriesService = require("../service/categories_servide");
 exports.categories = async (req, res, next) => {
     try {
       const { subject } = req.body;
-      const { filename } = req.file; // Ensure multer middleware parses the file
+      const { filename } = req.file; 
   
       const image1 = await CategoriesService.createCategories(subject, filename);
       let data = { subject: subject, categoryimage: req.file.filename };

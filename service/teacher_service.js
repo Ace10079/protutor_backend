@@ -141,30 +141,6 @@ class TeacherService {
         }
     }
 
-    // static async reduceCredit(tutor_id){
-    //     try {
-    //         const teacher = await TeacherModel.findOne({ tutor_id });
-   
-    //         if (!teacher) {
-    //         return { message: "Parent not found" };
-    //         }
-    
-    //         if (teacher.credits > 0) {
-              
-    //             teacher.credits--;
-    //             await teacher.save();
-    //             return { count: teacher.credits };
-    //         } else {
-               
-    //             return { message: "Count is already zero" };
-    //         }
-    //     } catch (error) {
-          
-    //         console.error('Error decreasing credits:', error);
-    //         throw new Error('Error decreasing credits');
-    //     }
-    // };
-
     static async resetPassword(phone,password){
         try {
             var query = {phone:phone};

@@ -17,6 +17,15 @@ class viewParent_service {
         }
     }
 
+    static async get(parent_id){
+        try {
+            
+            return await ViewParentModel.findOne({parent_id})
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports = viewParent_service
