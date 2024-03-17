@@ -3,8 +3,8 @@ const db = require('../config/db');
 
 const { Schema } = mongoose;
 
-const parentViewSchema = new Schema({
-    parent_id: {
+const tutorViewSchema = new Schema({
+    tutor_id: {
         type:String,
         required:true,
     },
@@ -14,7 +14,6 @@ const parentViewSchema = new Schema({
 });
 
 
+const ViewTutorModel = db.model('Viewtutor',tutorViewSchema);
 
-const ViewParentModel = db.model('ViewParent',parentViewSchema);
-
-module.exports = ViewParentModel;
+module.exports = ViewTutorModel;

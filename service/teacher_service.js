@@ -1,4 +1,5 @@
 const TeacherModel = require('../model/teacher_model');
+const ViewTutorModel = require('../model/viewedTutor_model');
 const IdcodeServices = require('./idcode_service');
 const bcrypt = require('bcrypt');
 
@@ -140,29 +141,29 @@ class TeacherService {
         }
     }
 
-    static async reduceCredit(tutor_id){
-        try {
-            const teacher = await TeacherModel.findOne({ tutor_id });
+    // static async reduceCredit(tutor_id){
+    //     try {
+    //         const teacher = await TeacherModel.findOne({ tutor_id });
    
-            if (!teacher) {
-            return { message: "Parent not found" };
-            }
+    //         if (!teacher) {
+    //         return { message: "Parent not found" };
+    //         }
     
-            if (teacher.credits > 0) {
+    //         if (teacher.credits > 0) {
               
-                teacher.credits--;
-                await teacher.save();
-                return { count: teacher.credits };
-            } else {
+    //             teacher.credits--;
+    //             await teacher.save();
+    //             return { count: teacher.credits };
+    //         } else {
                
-                return { message: "Count is already zero" };
-            }
-        } catch (error) {
+    //             return { message: "Count is already zero" };
+    //         }
+    //     } catch (error) {
           
-            console.error('Error decreasing credits:', error);
-            throw new Error('Error decreasing credits');
-        }
-    };
+    //         console.error('Error decreasing credits:', error);
+    //         throw new Error('Error decreasing credits');
+    //     }
+    // };
 
     static async resetPassword(phone,password){
         try {
@@ -175,6 +176,38 @@ class TeacherService {
            throw error 
         }
     }
+
+    static async reduceCredit(tutor_id, ViewId) {
+        try {
+          const tutor = await TeacherModel.findOne({ tutor_id });
+    
+          if (!tutor) {
+            return { message: "Tutor not  found" };
+          }
+    
+          const viewtutor = await ViewTutorModel.findOne({ tutor_id });
+          if (viewtutor && viewtutor.viewed.includes(ViewId)) {
+            return { message: "Viewers already present" };
+          }
+    
+          if (tutor.credits > 0) {
+            tutor.credits--;
+            await tutor.save();
+    
+            if (viewtutor) {
+                viewtutor.viewed.push(ViewId);
+              await viewtutor.save();
+            }
+    
+            return { count: tutor.credits };
+          } else {
+            return { message: "Count is already zero" };
+          }
+        } catch (error) {
+          console.error("Error decreasing credits:", error);
+          throw new Error("Error decreasing credits");
+        }
+      }
 }
 
 module.exports = TeacherService;

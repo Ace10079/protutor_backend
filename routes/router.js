@@ -17,7 +17,10 @@ const StudentPlanController = require("../controller/subscriptionstudent_control
 const WishListController = require("../controller/wishlist_controller");
 const TeacherWishController = require("../controller/teacher_wishlist_controller");
 const DocumentsController = require("../controller/verification_controller");
-const viewParentController = require("../controller/viewParent_controller")
+const viewParentController = require("../controller/viewParent_controller");
+const ViewStudentController = require('../controller/viewStudent_controller');
+const ViewTutorController = require('../controller/viewTutor_controller');
+
 const { runInContext } = require("vm");
 
 const storage = multer.diskStorage({
@@ -96,7 +99,7 @@ router.put("/creditUpdate", teacherController.creditUpdate);
 router.put("/verifyUpdate", teacherController.verifyUpdate);
 router.put("/teacherReset", teacherController.teacherReset);
 router.post("/teacherVerifyPhone", teacherController.verfityPhone);
-router.post("/teacherCreditCount", teacherController.teacherCredit);
+router.post("/teacherCreditCount", teacherController.tutorCredit);
 
 router.post("/categories", upload1, categoriesController.categories);
 router.post("/updatecategories", upload1, categoriesController.update);
@@ -134,10 +137,7 @@ router.delete("/deletewish", WishListController.wishdelete);
 router.post("/wishlistRegister", WishListController.wishListRegister);
 router.get("/wishlistget", WishListController.get);
 router.delete("/teacherwishdelete", TeacherWishController.teacherwishdelete);
-router.post(
-  "/teahcerwishlistRegister",
-  TeacherWishController.teacherWishListRegister
-);
+router.post("/teahcerwishlistRegister",TeacherWishController.teacherWishListRegister);
 router.get("/teacherwishlist", TeacherWishController.get);
 router.post("/feedback", feadbackController.feadback);
 
@@ -147,6 +147,11 @@ router.put('/commentUpdate',DocumentsController.CommentUpdate);
 router.put('/docsupdate' ,documents,DocumentsController.updateDocs);
 
 router.post('/createviewParent',viewParentController.register);
-// router.post('/viewParent/:parent_id',viewParentController.ParentView);
+
+router.post('/createviewParent',viewParentController.register);
+
+router.post('/createviewStudent',ViewStudentController.register);
+
+router.post('/createviewTutor',ViewTutorController.register);
 
 module.exports = router;

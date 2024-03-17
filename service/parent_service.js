@@ -34,30 +34,6 @@ class ParentService {
         }
     }
 
-    // static async reduceCredit(parent_id){
-    //     try {
-    //         const parent = await ParentModel.findOne({ parent_id });
-   
-    //         if (!parent) {
-    //         return { message: "Parent not found" };
-    //         }
-    
-    //         if (parent.credits > 0) {
-              
-    //             parent.credits--;
-    //             await parent.save();
-    //             return { count: parent.credits };
-    //         } else {
-               
-    //             return { message: "Count is already zero" };
-    //         }
-    //     } catch (error) {
-          
-    //         console.error('Error decreasing credits:', error);
-    //         throw new Error('Error decreasing credits');
-    //     }
-    // };
-
     static async loginParent(email){
         try {
             return await ParentModel.findOne({email})
@@ -153,7 +129,7 @@ class ParentService {
                 parent.credits--;
                 await parent.save();
     
-                // If tutor_id is not already followed, add it to the following array
+                
                 if (viewParent) {
                     viewParent.viewed.push(tutor_id);
                     await viewParent.save();

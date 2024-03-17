@@ -114,24 +114,24 @@ exports.teacherGet = async (req,res,next)=>{
     }
 }
 
-exports.teacherCredit = async (req, res, next) => {
-    try {
-        const { tutor_id } = req.body; 
+// exports.teacherCredit = async (req, res, next) => {
+//     try {
+//         const { tutor_id } = req.body; 
 
-        const result = await TeacherService.reduceCredit(tutor_id);
+//         const result = await TeacherService.reduceCredit(tutor_id);
 
-        if (result.message) {
+//         if (result.message) {
           
-            res.json({ message: result.message });
-        } else {
+//             res.json({ message: result.message });
+//         } else {
             
-            res.json({ count: result.count });
-        }
-    } catch (error) {
-        console.error('Error in parentCredits:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-};
+//             res.json({ count: result.count });
+//         }
+//     } catch (error) {
+//         console.error('Error in parentCredits:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// };
 
 exports.get = async (req,res,next) => {
     try {
@@ -174,5 +174,21 @@ exports.teacherReset = async(req,res,next) => {
         res.json({status: true,success:successRes});
     } catch (error) {
         res.status(200).json({status:false,success:error})
+    }
+}
+
+exports.tutorCredit = async (req, res, next) => {
+    try {
+        const { tutor_id, viewId } = req.body; 
+        const result = await TeacherService.reduceCredit( tutor_id,viewId);
+
+        if (result.message) {
+            res.json({ message: result.message });
+        } else {
+            res.json({ count: result.count });
+        }
+    } catch (error) {
+        console.error('Error decreasing credits:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 }

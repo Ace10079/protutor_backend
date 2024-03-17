@@ -120,24 +120,6 @@ exports.studentSubject = async (req,res,next) => {
        throw error 
     }
 }
-exports.studentCredit = async (req, res, next) => {
-    try {
-        const { student_id } = req.body; 
-
-        const result = await StudentService.reduceCredit(student_id);
-
-        if (result.message) {
-          
-            res.json({ message: result.message });
-        } else {
-            
-            res.json({ count: result.count });
-        }
-    } catch (error) {
-        console.error('Error in parentCredits:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-};
 
 exports.verifyphone = async(req, res, next)=>{
     try{
@@ -177,5 +159,21 @@ exports.studentReset = async(req,res,next) => {
         res.json({status:true,success:successRes});
     } catch (error) {
         res.status(200).json({status:false,message:error});      
+    }
+}
+
+exports.studentCredit = async (req, res, next) => {
+    try {
+        const { student_id, tutor_id } = req.body; 
+        const result = await StudentService.reduceCredit(student_id, tutor_id);
+
+        if (result.message) {
+            res.json({ message: result.message });
+        } else {
+            res.json({ count: result.count });
+        }
+    } catch (error) {
+        console.error('Error decreasing credits:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 }
