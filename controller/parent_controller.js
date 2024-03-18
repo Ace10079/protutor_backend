@@ -173,7 +173,7 @@ exports.parentCredit = async (req, res, next) => {
 exports.creditUpdate = async (req,res,next) => {
     try {
         const { parent_id,credits } = req.body;
-        const updateOne = await ParentService.creditsUpdate(this.parentCreditt_id,credits);
+        const updateOne = await ParentService.creditsUpdate(parent_id,credits);
         res.status(200).json(updateOne);
     } catch (error) {
         console.error(error);
