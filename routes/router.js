@@ -70,6 +70,7 @@ router.get("/parentsubject", parentController.parentSubject);
 router.get("/parentget", parentController.get);
 router.delete("/parentDelete", parentController.parentDelete);
 router.put("/changePassword", parentController.changePassword);
+router.put("/creditscountUpdate", parentController.creditUpdate);
 router.put("/parentreset", parentController.parentreset);
 router.post("/phonenumber", parentController.verifyphone);
 router.post("/creditCount", parentController.parentCredit);

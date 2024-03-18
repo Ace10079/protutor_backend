@@ -145,6 +145,20 @@ class ParentService {
         }
     };
 
+    static async creditsUpdate(parent_id, credits) {
+        try {
+          var query = { parent_id: parent_id };
+          var values = {
+            $set: {
+              credits: credits,
+            },
+          };
+          return await ParentModel.updateOne(query, values);
+        } catch (error) {
+          throw error;
+        }
+      }
+
 }
 
 

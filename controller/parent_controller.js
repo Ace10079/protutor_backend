@@ -84,19 +84,6 @@ exports.parentDelete = async (req,res,next) =>{
     }
 }
 
-exports.parentCredits = async (req,res,next) => {
-    try {
-        const result = ParentService.reduceCount();
-        if(result === -1){
-            res.json({message:"Count is already zero"});
-        } else {
-            res.json({count:result});
-        }
-    } catch (error) {
-       console.error('Error decreasing credits:', error);
-    }
-}
-
 exports.changePassword = async(req, res, next)=>{
     try{
         const{email,password} = req.body;
@@ -180,5 +167,16 @@ exports.parentCredit = async (req, res, next) => {
     } catch (error) {
         console.error('Error decreasing credits:', error);
         res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+exports.creditUpdate = async (req,res,next) => {
+    try {
+        const { parent_id,credits } = req.body;
+        const updateOne = await ParentService.creditsUpdate(this.parentCreditt_id,credits);
+        res.status(200).json(updateOne);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error:"Internal Server Error"});
     }
 }
