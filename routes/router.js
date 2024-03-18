@@ -132,12 +132,11 @@ router.delete("/deletestudentplan", StudentPlanController.delete);
 router.delete("/deletewish", WishListController.wishdelete);
 router.post("/wishlistRegister", WishListController.wishListRegister);
 router.get("/wishlistget", WishListController.get);
+
 router.delete("/teacherwishdelete", TeacherWishController.teacherwishdelete);
-router.post(
-  "/teahcerwishlistRegister",
-  TeacherWishController.teacherWishListRegister
-);
+router.post("/teahcerwishlistRegister",TeacherWishController.teacherWishListRegister);
 router.get("/teacherwishlist", TeacherWishController.get);
+
 router.post("/feedback", feadbackController.feadback);
 
 router.post("/documents", documents, DocumentsController.documents);

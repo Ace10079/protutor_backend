@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const StudentSubscriptionSchema = new Schema({
     email :{
         type : String,
-        required : true,
+       
     },
     sub_id :{
         type : String,
@@ -48,6 +48,9 @@ const StudentSubscriptionSchema = new Schema({
     address: {
         type:String,
         required:true,
+    },
+    phone: {
+        type:String,
     }
 });
 

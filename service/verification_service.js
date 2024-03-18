@@ -41,7 +41,11 @@ class VerificationService {
 
   static async getTutorId(tutor_id) {
     try {
-      return await VerficationModel.find({ tutor_id });
+      const data = await VerficationModel.find({ tutor_id });
+    if (data.length === 0) {
+      return null;
+    }
+    return data;
     } catch (error) {
       throw error;
     }

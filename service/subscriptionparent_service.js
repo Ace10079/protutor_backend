@@ -15,7 +15,8 @@ class ParentPlanServices {
     date,
     count,
     email,
-    address
+    address,
+    phone
   ) {
     try {
       var sub_id = await IdcodeServices.generateCode("ParentPlan");
@@ -30,7 +31,8 @@ class ParentPlanServices {
         date,
         count,
         email,
-        address
+        address,
+        phone
       });
       return await createUser.save();
     } catch (err) {
@@ -49,7 +51,7 @@ class ParentPlanServices {
     date,
     count,
     email,
-    address
+    address,phone
   ) {
     try {
       var query = { sub_id: sub_id };
@@ -64,7 +66,8 @@ class ParentPlanServices {
           date: date,
           count: count,
           email : email,
-          address:address
+          address:address,
+          phone:phone
         },
       };
 
