@@ -4,16 +4,17 @@ const db = require("../config/db");
 const { Schema } = mongoose;
 
 const ParentSubscriptionSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
-  },
+  
   sub_id: {
     type: String,
     required: true,
   },
 
   parent_id: {
+    type: String,
+    required: true,
+  },
+  email: {
     type: String,
     required: true,
   },

@@ -3,10 +3,10 @@ const ParentPlanServices = require('../service/subscriptionparent_service');
 
 exports.CreateParentPlan = async (req, res, next) => {
     try {
-        const { sub_id,parent_id,fname,plan_name,plancost,status,tnx_id,date,count,email,address,phone } = req.body;
+        const { sub_id,parent_id,email,fname,plan_name,plancost,status,tnx_id,date,count,address,phone } = req.body;
 
-        const Res = await ParentPlanServices.registerParentPlan(parent_id,fname,plan_name,plancost,status,tnx_id,date,count,email,address,phone);
-        let ParentplanData = { sub_id,parent_id,fname,plan_name,plancost : plancost,status,tnx_id,date,count,email,address,phone};
+        const Res = await ParentPlanServices.registerParentPlan(parent_id,email,fname,plan_name,plancost,status,tnx_id,date,count,address,phone);
+        let ParentplanData = { sub_id,parent_id,email,fname,plan_name,plancost : plancost,status,tnx_id,date,count,address,phone};
         res.status(200).json(ParentplanData)
 
     } catch (error) {
@@ -16,8 +16,8 @@ exports.CreateParentPlan = async (req, res, next) => {
 
 exports.Update = async (req,res, next) => {
     try {
-        const { sub_id,parent_id,fname,plan_name,plancost,status,tnx_id,date,count,email,address,phone} = req.body;
-        const updateData = await ParentPlanServices.updateParentPlan(sub_id,parent_id,fname,plan_name,plancost,status,tnx_id,date,count,email,address,phone);
+        const { sub_id,parent_id,email,fname,plan_name,plancost,status,tnx_id,date,count,address,phone} = req.body;
+        const updateData = await ParentPlanServices.updateParentPlan(sub_id,parent_id,email,fname,plan_name,plancost,status,tnx_id,date,count,address,phone);
         res.status(200).json(updateData)
     } catch (error) {
         next (error);

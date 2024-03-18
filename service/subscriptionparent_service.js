@@ -7,6 +7,7 @@ const nodemailer = require("nodemailer");
 class ParentPlanServices {
   static async registerParentPlan(
     parent_id,
+    email,
     fname,
     plan_name,
     plancost,
@@ -14,7 +15,6 @@ class ParentPlanServices {
     tnx_id,
     date,
     count,
-    email,
     address,
     phone
   ) {
@@ -23,6 +23,7 @@ class ParentPlanServices {
       const createUser = new ParentPlanModel({
         sub_id,
         parent_id,
+        email,
         fname,
         plan_name,
         plancost,
@@ -30,7 +31,6 @@ class ParentPlanServices {
         tnx_id,
         date,
         count,
-        email,
         address,
         phone
       });
@@ -43,6 +43,7 @@ class ParentPlanServices {
   static async updateParentPlan(
     sub_id,
     parent_id,
+    email,
     fname,
     plan_name,
     plancost,
@@ -50,7 +51,6 @@ class ParentPlanServices {
     tnx_id,
     date,
     count,
-    email,
     address,phone
   ) {
     try {
@@ -58,6 +58,7 @@ class ParentPlanServices {
       var values = {
         $set: {
           parent_id: parent_id,
+          email : email,
           fname: fname,
           plan_name: plan_name,
           plancost: plancost,
@@ -65,7 +66,6 @@ class ParentPlanServices {
           tnx_id: tnx_id,
           date: date,
           count: count,
-          email : email,
           address:address,
           phone:phone
         },

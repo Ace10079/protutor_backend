@@ -14,7 +14,8 @@ const PlanController = require("../controller/subscriptionplan_controller");
 const ParentPlanController = require("../controller/subscriptionparent_controller");
 const TutorPlanController = require("../controller/subscriptiontutor_controller");
 const StudentPlanController = require("../controller/subscriptionstudent_controller");
-const WishListController = require("../controller/wishlist_controller");
+const ParentWishListController = require("../controller/parentwishlist_controller");
+const StudentWishListController = require("../controller/studentwishlist_controller");
 const TeacherWishController = require("../controller/teacher_wishlist_controller");
 const DocumentsController = require("../controller/verification_controller");
 const viewParentController = require("../controller/viewParent_controller");
@@ -51,6 +52,7 @@ router.get("/getimage", ImageController.getimage);
 
 router.post("/idcode", idcodeController.idcode);
 
+// Admin routes:-
 router.post("/admin", AdminController.register);
 router.post("/adminlogin", AdminController.login);
 router.get("/getadmin", AdminController.get);
@@ -59,6 +61,7 @@ router.get("/getemail", AdminController.getEmail);
 router.put("/updateadmin", AdminController.Update);
 router.delete("/deleteadmin", AdminController.delete);
 
+// Parent routes:-
 router.post("/parentregister", parentController.register);
 router.post("/parentLogin", parentController.parentLogin);
 router.put("/parentUpdate", parentController.parentUpdate);
@@ -71,6 +74,7 @@ router.put("/parentreset", parentController.parentreset);
 router.post("/phonenumber", parentController.verifyphone);
 router.post("/creditCount", parentController.parentCredit);
 
+// Student routes:-
 router.post("/studentregister", studentController.studentRegister);
 router.post("/studentLogin", studentController.studentLogin);
 router.put("/studentUpdate", studentController.studentsUpdate);
@@ -84,6 +88,7 @@ router.put("/studentReset", studentController.studentReset);
 router.post("/studentVerifyPhone", studentController.verifyphone);
 router.post("/creditsCount", studentController.studentCredit);
 
+// Tutor routes:-
 router.post("/teacherregister", teacherController.teacherregister);
 router.post("/teacherlogin", teacherController.teacherLogin);
 router.post("/teacherUpdate", teacher, teacherController.teacherUpdate);
@@ -97,16 +102,19 @@ router.put("/teacherReset", teacherController.teacherReset);
 router.post("/teacherVerifyPhone", teacherController.verfityPhone);
 router.post("/teacherCreditCount", teacherController.tutorCredit);
 
+// Category routes:-
 router.post("/categories", upload1, categoriesController.categories);
 router.post("/updatecategories", upload1, categoriesController.update);
 router.get("/categoriesGet", categoriesController.get);
 router.get("/getcategories", categoriesController.getCategory);
 router.delete("/categoriesDelete", categoriesController.delete);
 
+// Subscription Plan routes:-
 router.post("/plan", plan, PlanController.plan);
 router.get("/getplans", PlanController.getplan);
 router.delete("/deleteplan", PlanController.delete);
 
+// Parent Subscription routes:-
 router.post("/parentplan", ParentPlanController.CreateParentPlan);
 router.get("/getparentplan", ParentPlanController.getParentplan);
 router.get("/getparentplanId", ParentPlanController.getId);
@@ -115,6 +123,7 @@ router.put("/updateparentplan", ParentPlanController.Update);
 router.delete("/deleteparentplan", ParentPlanController.delete);
 router.post("/parentemail", ParentPlanController.generatemail);
 
+// tutor Subscription routes:-
 router.post("/tutorplan", TutorPlanController.CreateTutorPlan);
 router.get("/gettutorplan", TutorPlanController.getTutorplan);
 router.get("/gettutorplanId", TutorPlanController.getId);
@@ -122,6 +131,7 @@ router.get("/getplantutorid", TutorPlanController.getTutorId);
 router.put("/updatetutorplan", TutorPlanController.Update);
 router.delete("/deletetutorplan", TutorPlanController.delete);
 
+// student Subscription routes:-
 router.post("/studentplan", StudentPlanController.CreateStudentPlan);
 router.get("/getstudentplan", StudentPlanController.getStudentplan);
 router.get("/getstudentplanid", StudentPlanController.getId);
@@ -129,27 +139,38 @@ router.get("/getstudentid", StudentPlanController.getStudentId);
 router.put("/updatestudentplan", StudentPlanController.Update);
 router.delete("/deletestudentplan", StudentPlanController.delete);
 
-router.delete("/deletewish", WishListController.wishdelete);
-router.post("/wishlistRegister", WishListController.wishListRegister);
-router.get("/wishlistget", WishListController.get);
+// Parent WishList routes:-
+router.delete("/deletewish", ParentWishListController.delete);
+router.post("/wishlistRegister", ParentWishListController.register);
+router.get("/wishlistget", ParentWishListController.get);
 
+// Student WishList routes:-
+router.delete("/deletestudentwishList", StudentWishListController.delete);
+router.post("/studentwishlist", StudentWishListController.register);
+router.get("/getstudentwishlist", StudentWishListController.get);
+
+// Teacher WishList routes:-
 router.delete("/teacherwishdelete", TeacherWishController.teacherwishdelete);
 router.post("/teahcerwishlistRegister",TeacherWishController.teacherWishListRegister);
 router.get("/teacherwishlist", TeacherWishController.get);
 
 router.post("/feedback", feadbackController.feadback);
 
+// Documents routes:-
 router.post("/documents", documents, DocumentsController.documents);
 router.get("/getdocument", DocumentsController.get);
 router.put("/commentUpdate", DocumentsController.CommentUpdate);
 router.put("/docsupdate", documents, DocumentsController.updateDocs);
 
+// Parent Viewed routes:-
 router.post("/createviewParent", viewParentController.register);
 router.get("/viewedParent", viewParentController.get);
 
+// Student Viewed routes:-
 router.post("/createviewStudent", ViewStudentController.register);
 router.get("/viewedStudent", ViewStudentController.get);
 
+// Tutor Viewed routes:-
 router.post("/createviewTutor", ViewTutorController.register);
 router.get("/viewedTutor", ViewTutorController.get);
 

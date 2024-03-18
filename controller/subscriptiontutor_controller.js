@@ -3,9 +3,9 @@ const TutorPlanServices = require('../service/subscriptiontutor_service');
 
 exports.CreateTutorPlan = async (req, res, next) => {
     try {
-        const { sub_id,email,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count,address,phone } = req.body;
+        const { sub_id,tutor_id,email,fname,plan_name,plancost,status,tnx_id,date,count,address,phone } = req.body;
 
-        const Res = await TutorPlanServices.registerTutorPlan(sub_id,email,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count,address,phone);
+        const Res = await TutorPlanServices.registerTutorPlan(tutor_id,email,fname,plan_name,plancost,status,tnx_id,date,count,address,phone);
         let TutorplanData = { sub_id,email,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count,address,phone };
         res.status(200).json(TutorplanData)
 
@@ -16,8 +16,8 @@ exports.CreateTutorPlan = async (req, res, next) => {
 
 exports.Update = async (req,res, next) => {
     try {
-        const { sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count,address,phone} = req.body;
-        const updateData = await TutorPlanServices.updateTutorPlan(sub_id,tutor_id,fname,plan_name,plancost,status,tnx_id,date,count,address,phone);
+        const { sub_id,tutor_id,email,fname,plan_name,plancost,status,tnx_id,date,count,address,phone} = req.body;
+        const updateData = await TutorPlanServices.updateTutorPlan(sub_id,tutor_id,email,fname,plan_name,plancost,status,tnx_id,date,count,address,phone);
         res.status(200).json(updateData)
     } catch (error) {
         next (error);

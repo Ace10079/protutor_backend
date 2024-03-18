@@ -4,9 +4,7 @@ const db = require('../config/db');
 const {Schema } = mongoose;
 
 const TutorSubscriptionSchema = new Schema({
-    email :{
-        type : String,
-    },
+   
     sub_id :{
         type : String,
         required : true,
@@ -15,6 +13,9 @@ const TutorSubscriptionSchema = new Schema({
     tutor_id : {
         type : String,
         required : true,
+    },
+    email :{
+        type : String,
     },
     fname : {
         type : String,
