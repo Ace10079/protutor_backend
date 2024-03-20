@@ -115,9 +115,9 @@ class TeacherService {
 
     static async Teacher(){
         try {
-            return await TeacherModel.find()
+            return await TeacherModel.find({ verification: "verified" });
         } catch (error) {
-            throw error
+            throw error;
         }
     }
 
