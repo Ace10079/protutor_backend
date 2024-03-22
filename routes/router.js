@@ -99,6 +99,7 @@ router.put("/teacherPasswordChange", teacherController.changePassword);
 router.delete("/teacherDelete", teacherController.teacherDelete);
 router.put("/creditUpdate", teacherController.creditUpdate);
 router.put("/verifyUpdate", teacherController.verifyUpdate);
+router.put("/statusUpdate", teacherController.statusUpdate);
 router.put("/teacherReset", teacherController.teacherReset);
 router.post("/teacherVerifyPhone", teacherController.verfityPhone);
 router.post("/teacherCreditCount", teacherController.tutorCredit);
@@ -121,6 +122,7 @@ router.get("/getparentplan", ParentPlanController.getParentplan);
 router.get("/getparentplanId", ParentPlanController.getId);
 router.get("/getplanparentid", ParentPlanController.getparentId);
 router.put("/updateparentplan", ParentPlanController.Update);
+router.get("/getparentPLAN",ParentPlanController.getparentIdPLAN);
 router.delete("/deleteparentplan", ParentPlanController.delete);
 router.post("/parentemail", ParentPlanController.generatemail);
 
@@ -129,6 +131,7 @@ router.post("/tutorplan", TutorPlanController.CreateTutorPlan);
 router.get("/gettutorplan", TutorPlanController.getTutorplan);
 router.get("/gettutorplanId", TutorPlanController.getId);
 router.get("/getplantutorid", TutorPlanController.getTutorId);
+router.get("/gettutorPLAN", TutorPlanController.getTutorIdplan);
 router.put("/updatetutorplan", TutorPlanController.Update);
 router.delete("/deletetutorplan", TutorPlanController.delete);
 
@@ -137,6 +140,7 @@ router.post("/studentplan", StudentPlanController.CreateStudentPlan);
 router.get("/getstudentplan", StudentPlanController.getStudentplan);
 router.get("/getstudentplanid", StudentPlanController.getId);
 router.get("/getstudentid", StudentPlanController.getStudentId);
+router.get("/getstudentPLAN",StudentPlanController.getStudentIdPLAN)
 router.put("/updatestudentplan", StudentPlanController.Update);
 router.delete("/deletestudentplan", StudentPlanController.delete);
 
@@ -152,7 +156,10 @@ router.get("/getstudentwishlist", StudentWishListController.get);
 
 // Teacher WishList routes:-
 router.delete("/teacherwishdelete", TeacherWishController.teacherwishdelete);
-router.post("/teahcerwishlistRegister",TeacherWishController.teacherWishListRegister);
+router.post(
+  "/teahcerwishlistRegister",
+  TeacherWishController.teacherWishListRegister
+);
 router.get("/teacherwishlist", TeacherWishController.get);
 
 router.post("/feedback", feadbackController.feadback);

@@ -4,14 +4,14 @@ const bcrypt = require('bcrypt');
 
 exports.teacherregister = async (req,res,next) => {
     try {
-        const { tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits } = req.body;
+        const { tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status } = req.body;
         //const { filename } = req.file; 
         const teacher = await TeacherService.checkuser(email);
         if(teacher){
             return res.status(401).json({message:"Email is Already registered"});
         }
-        const successRes = await TeacherService.teacherregister(fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits);
-        let data = {tutor_id:successRes.tutor_id,fname: fname, lname: lname,gender:gender,email:email,phone: phone,address: address,state: state,postcode: postcode,password: password,subject: subject,experience:experience,qualification: qualification,bio:bio,verification:verification,teacherimage : teacherimage,credits:credits};
+        const successRes = await TeacherService.teacherregister(fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status);
+        let data = {tutor_id:successRes.tutor_id,fname: fname, lname: lname,gender:gender,email:email,phone: phone,address: address,state: state,postcode: postcode,password: password,subject: subject,experience:experience,qualification: qualification,bio:bio,verification:verification,teacherimage : teacherimage,credits:credits,status:status};
         console.log(successRes);
         res.status(200).json({status: true,success:"Teacher Registered Successfully",data});
     } catch (error) {
@@ -88,6 +88,18 @@ exports.verifyUpdate = async (req,res,next) => {
         const {tutor_id} = req.query
         const { verification } = req.body;
         const updateOne = await TeacherService.verificationUpdate(tutor_id,verification);
+        res.status(200).json(updateOne);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error:"Internal Server Error"});
+    }
+}
+
+exports.statusUpdate = async (req,res,next) => {
+    try {
+        const {tutor_id} = req.query
+        const { status } = req.body;
+        const updateOne = await TeacherService.statusUpdate(tutor_id,status);
         res.status(200).json(updateOne);
     } catch (error) {
         console.error(error);

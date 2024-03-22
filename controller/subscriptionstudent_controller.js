@@ -63,3 +63,13 @@ exports.getStudentId = async(req,res,next) => {
         next(error);
     }
 }
+
+exports.getStudentIdPLAN = async(req,res,next) => {
+    try {
+        const {student_id} = req.query;
+        const User = await StudentPlanServices.getPLAN(student_id);
+        res.status(200).json(User)
+    } catch (error) {
+        next(error);
+    }
+}

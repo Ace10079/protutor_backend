@@ -60,6 +60,13 @@ class StudentPlanServices{
         }
     }
 
-  
+    static async getPLAN(student_id){
+        try {
+            
+            return await StudentPlanModel.findOne({student_id})
+        } catch (error) {
+            throw error
+        }
+    }
 }
 module.exports = StudentPlanServices;

@@ -74,6 +74,10 @@ const teacherSchema = new Schema({
     credits :{
         type:String,
         required:true,
+    },
+    status :{
+        type:String,
+        
     }
 });
 

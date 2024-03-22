@@ -5,10 +5,10 @@ const bcrypt = require('bcrypt');
 
 
 class TeacherService {
-    static async teacherregister(fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits){
+    static async teacherregister(fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status){
         try {
             var tutor_id = await IdcodeServices.generateCode("teacher");
-            const createUser = new TeacherModel({tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits});
+            const createUser = new TeacherModel({tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status});
             return await createUser.save();
         } catch (error) {
             throw error;
@@ -87,6 +87,20 @@ class TeacherService {
             var values = {
                 $set:{
                     verification:verification,
+                }
+            };
+            return await TeacherModel.updateOne(query,values);
+        } catch (error) {
+           throw error; 
+        }
+    }
+
+    static async statusUpdate(tutor_id,status){
+        try {
+            var query = {tutor_id:tutor_id};
+            var values = {
+                $set:{
+                    status:status,
                 }
             };
             return await TeacherModel.updateOne(query,values);

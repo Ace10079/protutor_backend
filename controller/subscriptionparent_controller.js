@@ -77,3 +77,13 @@ exports.generatemail = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+exports.getparentIdPLAN = async(req,res,next) => {
+    try {
+        const {parent_id} = req.query;
+        const User = await ParentPlanServices.getPLAN(parent_id);
+        res.status(200).json(User)
+    } catch (error) {
+        next(error);
+    }
+}
