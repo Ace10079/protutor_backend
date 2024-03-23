@@ -135,6 +135,15 @@ exports.get = async (req,res,next) => {
     }
 }
 
+exports.get1 = async (req,res,next) => {
+    try {
+        const getData = await TeacherService.Teacher1()
+        res.status(200).json(getData)
+    } catch (error) {
+        next (error)
+    }
+}
+
 exports.verfityPhone = async(req,res,next) =>{
     try {
         const {phone} = req.body;

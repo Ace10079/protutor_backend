@@ -95,6 +95,7 @@ router.post("/teacherlogin", teacherController.teacherLogin);
 router.post("/teacherUpdate", teacher, teacherController.teacherUpdate);
 router.get("/teacherGetData", teacherController.teacherGet);
 router.get("/teacherget", teacherController.get);
+router.get("/teacherget1", teacherController.get1);
 router.put("/teacherPasswordChange", teacherController.changePassword);
 router.delete("/teacherDelete", teacherController.teacherDelete);
 router.put("/creditUpdate", teacherController.creditUpdate);

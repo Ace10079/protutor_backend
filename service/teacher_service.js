@@ -135,6 +135,14 @@ class TeacherService {
         }
     }
 
+    static async Teacher1(){
+        try {
+            return await TeacherModel.find();
+        } catch (error) {
+            throw error;
+        }
+    }
+
     static async changePassword(email,password){
         try{
             var query = { email: email };
