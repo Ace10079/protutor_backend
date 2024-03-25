@@ -74,7 +74,10 @@ const parentwishlistSchema = new Schema({
     credits :{
         type:String,
         required:true,
-    }
+    },
+    status : {
+        type : String
+    },
 });
 
 const parentWishlistModel = db.model('parentwishlist',parentwishlistSchema);

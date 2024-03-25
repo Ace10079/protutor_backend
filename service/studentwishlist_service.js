@@ -2,10 +2,10 @@ const studentWishlistModel = require('../model/studentWishlist_model');
 const IdcodeServices = require('./idcode_service');
 
 class studentWishListService {
-    static async studentwishlist(tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits){
+    static async studentwishlist(tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status){
         try {
             var studentwish_id = await IdcodeServices.generateCode('studentWishList');
-            const createUser = new studentWishlistModel({studentwish_id,tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits});
+            const createUser = new studentWishlistModel({studentwish_id,tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status});
             return await createUser.save();
         } catch (error) {
            throw error; 

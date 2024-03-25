@@ -2,8 +2,8 @@ const parentWishListService = require("../service/parentwishlist_service");
 
 exports.register = async (req,res,next) => {
     try {
-        const {tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits} = req.body;
-        const succesRes = await parentWishListService.parentwishlist(tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits);
+        const {tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status} = req.body;
+        const succesRes = await parentWishListService.parentwishlist(tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status);
         res.status(200).json({status:true,success:"WishList Registered Successfully",succesRes});
     } catch (error) {
         throw error

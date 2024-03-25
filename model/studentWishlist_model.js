@@ -75,6 +75,9 @@ const studentwishlistSchema = new Schema({
     type: String,
     required: true,
   },
+  status : {
+    type : String
+},
 });
 
 const studentWishlistModel = db.model("studentwishlist", studentwishlistSchema);
