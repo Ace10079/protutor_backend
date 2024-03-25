@@ -4,8 +4,8 @@ const TeacherWishlistParentModel = require('../model/teacherWishlistParent_model
 class TeacherWishListParentService {
     static async TeacherWishRegisterParent(parent_id,fname,laname,gender,email,phone,address,state,postcode,password,subject,kidname,grade,tution_slot,credits){
         try {
-            var teacherwishid = await IdcodeServices.generateCode('TeacherWishListParent');
-            const createUser = new TeacherWishlistParentModel({teacherwishid,parent_id,fname,laname,gender,email,phone,address,state,postcode,password,subject,kidname,grade,tution_slot,credits});
+            var teacherwishparent_id = await IdcodeServices.generateCode('TeacherWishListParent');
+            const createUser = new TeacherWishlistParentModel({teacherwishparent_id,parent_id,fname,laname,gender,email,phone,address,state,postcode,password,subject,kidname,grade,tution_slot,credits});
 
             return await createUser.save();
         } catch (error) {

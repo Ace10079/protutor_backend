@@ -3,7 +3,7 @@ const TeacherWishListStudentService = require("../service/teacherwishlistStudent
 
 exports.TeacherStudent = async (req,res,next) => {
     try {
-        const {teacherwishid,student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode,password,credits} = req.body;
+        const {student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode,password,credits} = req.body;
         const succesRes = await TeacherWishListStudentService.TeacherWishRegisterStudent(student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode,password,credits);
        
         res.status(200).json({status:true,success:"WishListStudent Registered Successfully",succesRes});
