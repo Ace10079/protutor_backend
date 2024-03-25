@@ -16,7 +16,8 @@ const TutorPlanController = require("../controller/subscriptiontutor_controller"
 const StudentPlanController = require("../controller/subscriptionstudent_controller");
 const ParentWishListController = require("../controller/parentwishlist_controller");
 const StudentWishListController = require("../controller/studentwishlist_controller");
-const TeacherWishController = require("../controller/teacher_wishlist_controller");
+const TeacherWishListParentController = require("../controller/teacherwishlistparent_controller");
+const TeacherWishListStudentController = require("../controller/teacherwishliststudent_controller");
 const DocumentsController = require("../controller/verification_controller");
 const viewParentController = require("../controller/viewParent_controller");
 const ViewStudentController = require("../controller/viewStudent_controller");
@@ -155,14 +156,17 @@ router.delete("/deletestudentwishList", StudentWishListController.delete);
 router.post("/studentwishlist", StudentWishListController.register);
 router.get("/getstudentwishlist", StudentWishListController.get);
 
-// Teacher WishList routes:-
-router.delete("/teacherwishdelete", TeacherWishController.teacherwishdelete);
-router.post(
-  "/teahcerwishlistRegister",
-  TeacherWishController.teacherWishListRegister
-);
-router.get("/teacherwishlist", TeacherWishController.get);
+// Teacher WishList Parent routes:-
+router.delete("/deletetutorwishlistParent", TeacherWishListParentController.Teacherwishdelete);
+router.post("/tutorwishlistParent",TeacherWishListParentController.TeacherParent);
+router.get("/gettutorwishlistParent", TeacherWishListParentController.get);
 
+// Teacher WishList Student routes:-
+router.delete("/deletetutorwishlistStudent", TeacherWishListStudentController.Teacherwishdelete);
+router.post("/tutorwishlistStudent",TeacherWishListStudentController.TeacherStudent);
+router.get("/gettutorwishlistStudent", TeacherWishListStudentController.get);
+
+// feedback routes:-
 router.post("/feedback", feadbackController.feadback);
 
 // Documents routes:-

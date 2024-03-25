@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const db = require('../config/db');
-const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose;
 
-const teacherwishlistSchema = new Schema({
-    teacherwishid: {
+const teacherwishlistparentSchema = new Schema({
+    teacherwishparent_id: {
         type:String,
         required:true,
     },
@@ -72,18 +71,8 @@ const teacherwishlistSchema = new Schema({
         required:true,
     }
 });
-teacherwishlistSchema.pre('save',async function() {
-    try {
-        var teacher = this;
-        const salt = await (bcrypt.genSalt(10));
-        const hashpass = await bcrypt.hash(teacher.password,salt);
 
-        teacher.password = hashpass;
-    } catch (error) {
-        throw error;
-    }
-});
 
-const TeacherWishlistModel = db.model('teacherwishList',teacherwishlistSchema);
+const TeacherWishlistParentModel = db.model('teacherwishListParent',teacherwishlistparentSchema);
 
-module.exports = TeacherWishlistModel;
+module.exports = TeacherWishlistParentModel;
