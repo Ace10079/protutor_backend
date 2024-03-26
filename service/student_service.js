@@ -1,3 +1,4 @@
+const NotifyModel = require("../model/notification_model");
 const StudentModel = require("../model/student_model");
 const ViewStudentModel = require("../model/viewedStudent_model");
 const IdcodeServices = require("./idcode_service");
@@ -209,6 +210,16 @@ class StudentService {
         if (viewstudent) {
           viewstudent.viewed.push(tutor_id);
           await viewstudent.save();
+        }
+
+        if (viewstudent.viewed.includes(tutor_id)) {
+          const newNotification = new NotifyModel({
+            tutor_id: tutor_id,
+            view_id: student_id,
+            fname: student.fname,
+            lname: student.lname,
+          });
+          await newNotification.save();
         }
 
         return { count: student.credits };

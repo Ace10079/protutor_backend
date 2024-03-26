@@ -22,6 +22,8 @@ const DocumentsController = require("../controller/verification_controller");
 const viewParentController = require("../controller/viewParent_controller");
 const ViewStudentController = require("../controller/viewStudent_controller");
 const ViewTutorController = require("../controller/viewTutor_controller");
+const NotifyController = require("../controller/notify_controller");
+
 
 const storage = multer.diskStorage({
   destination: "./image",
@@ -186,5 +188,9 @@ router.get("/viewedStudent", ViewStudentController.get);
 // Tutor Viewed routes:-
 router.post("/createviewTutor", ViewTutorController.register);
 router.get("/viewedTutor", ViewTutorController.get);
+
+// Notify routes:-
+router.get("/notify", NotifyController.get);
+
 
 module.exports = router;
