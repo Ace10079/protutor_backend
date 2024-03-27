@@ -88,9 +88,8 @@ class StudentService {
     gphone,
     address,
     state,
-    postcode,
-    password,
-    credits
+    postcode
+   
   ) {
     try {
       var query = { student_id: student_id };
@@ -109,8 +108,7 @@ class StudentService {
           gphone: gphone,
           address: address,
           state: state,
-          postcode: postcode,
-          password: password,
+          postcode: postcode
         },
       };
       return await StudentModel.updateOne(query, values);

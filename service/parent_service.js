@@ -81,12 +81,11 @@ class ParentService {
     address,
     state,
     postcode,
-    password,
     kidname,
     grade,
     subject,
     tution_slot,
-    credits
+   
   ) {
     try {
       var query = { parent_id: parent_id };
@@ -100,12 +99,10 @@ class ParentService {
           address: address,
           state: state,
           postcode: postcode,
-          password: password,
           kidname: kidname,
           grade: grade,
           subject: subject,
           tution_slot: tution_slot,
-          credits: credits,
         },
       };
       return await ParentModel.updateOne(query, values);

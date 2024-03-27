@@ -62,9 +62,9 @@ exports.parentLogin = async (req,res, next) =>{
 
 exports.parentUpdate = async (req,res,next)=>{
     try {
-        const {parent_id,fname,laname,gender,email,phone,address,state,postcode,password,kidname,grade,subject,tution_slot,credits } = req.body;
+        const {parent_id,fname,laname,gender,email,phone,address,state,postcode,kidname,grade,subject,tution_slot } = req.body;
         
-        const successRes = await ParentService.updateParent(parent_id,fname,laname,gender,email,phone,address,state,postcode,password,kidname,grade,subject,tution_slot,credits);
+        const successRes = await ParentService.updateParent(parent_id,fname,laname,gender,email,phone,address,state,postcode,kidname,grade,subject,tution_slot);
         res.status(200).json(successRes);
        
     } catch (error) {

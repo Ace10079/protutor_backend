@@ -63,8 +63,8 @@ exports.studentLogin = async (req,res,next)=>{
 
 exports.studentsUpdate = async (req,res,next)=>{
     try {
-        const {student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode,password,credits } = req.body;
-        const updateData = await StudentService.studentUpdate(student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode,password,credits);
+        const {student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode } = req.body;
+        const updateData = await StudentService.studentUpdate(student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode);
         res.status(200).json(updateData);   
     } catch (error) {
         throw error

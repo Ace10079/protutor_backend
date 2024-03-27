@@ -39,7 +39,7 @@ class TeacherService {
         }
     }
 
-    static async teacherUpdate(tutor_id, fname, lname, gender, email, phone, address, state, postcode, password, subject, experience, qualification, bio, verification, credits, filename) {
+    static async teacherUpdate(tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio, filename) {
         try {
             var query = { tutor_id: tutor_id };
             var values = {

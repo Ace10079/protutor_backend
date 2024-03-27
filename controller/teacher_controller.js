@@ -58,12 +58,12 @@ exports.teacherLogin = async (req,res,next)=>{
 
 exports.teacherUpdate = async (req, res, next) => {
     try {
-        const { tutor_id, fname, lname, gender, email, phone, address, state, postcode, password, subject, experience, qualification, bio, verification, credits } = req.body;
+        const { tutor_id, fname, lname, gender, email, phone, address, state, postcode,  subject, experience, qualification, bio} = req.body;
         const { filename } = req.file;
         
-        const updateData = await TeacherService.teacherUpdate(tutor_id, fname, lname, gender, email, phone, address, state, postcode, password, subject, experience, qualification, bio, verification, credits, filename);
+        const updateData = await TeacherService.teacherUpdate(tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio,  filename);
 
-        let data = {tutor_id,fname, lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage: filename, credits};
+        let data = {tutor_id,fname, lname,gender,email,phone,address,state,postcode,subject,experience,qualification,bio,teacherimage: filename};
         
         res.status(200).json(data); 
     } catch (error) {
