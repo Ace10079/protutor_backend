@@ -1,4 +1,7 @@
+const TeacherModel = require("../model/teacher_model");
 const VerificationService = require("../service/verification_service");
+const sendEmail = require("../utils/email");
+
 
 exports.documents = async (req, res, next) => {
   try {
@@ -37,6 +40,58 @@ exports.CommentUpdate = async (req, res, next) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const generateEmailContent = (status, comment) => {
+
+  const commentText = comment ? `<strong>Comment:</strong> ${comment}` : 'Documents verified successfully.';
+
+  const commentpending = comment ? `<strong>Comment:</strong> ${comment}` : 'Documents Recjected.Try again later!';
+  if (status === 'pending') {
+    return `
+      <p>Dear Tutor,</p>
+      <p>We regret to inform you that your tutor verification status has been rejected.</p>
+      <p>${commentpending}</p>
+      <p>If you have any questions or need further assistance, please feel free to contact us.</p>
+      <p>Best regards,<br>ProTutor Team</p>
+    `;
+  } else if (status === 'verified') {
+    return `
+      <p>Dear Tutor,</p>
+      <p>We are pleased to inform you that your tutor verification status has been approved successfully.</p>
+       <p>${commentText}</p>
+      <p>If you have any questions or need further assistance, please feel free to contact us.</p>
+      <p>Best regards,<br>ProTutor Team</p>
+    `;
+  }
+};
+
+
+exports.verifyUpdate1 = async (req, res, next) => {
+  try {
+    const { tutor_id } = req.query;
+    const { comment } = req.body;
+    const updateOne = await VerificationService.CommentUpdate(tutor_id, comment);
+
+    // Fetch the tutor's email address
+    const tutor = await TeacherModel.findOne({ tutor_id });
+    if (!tutor) {
+      return res.status(404).json({ error: 'Tutor not found' });
+    }
+    const tutorEmail = tutor.email; // Adjust based on your model's structure
+    const status = tutor.verification
+    console.log(status);
+
+    // Send email notification with the comment
+    const subject = `Tutor Verification Status - ${status === 'pending' ? 'pending' : 'verified'}`;
+    const html = generateEmailContent(status, comment);
+    await sendEmail(tutorEmail, subject, html);
+
+    res.status(200).json(updateOne);
+  } catch (error) {
+    console.error('Error in verifyUpdate1:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 

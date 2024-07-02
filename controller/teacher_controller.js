@@ -1,5 +1,7 @@
+const TeacherModel = require("../model/teacher_model");
 const TeacherService = require("../service/teacher_service");
 const bcrypt = require('bcrypt');
+const sendEmail = require("../utils/email");
 
 
 exports.teacherregister = async (req,res,next) => {
@@ -94,6 +96,31 @@ exports.verifyUpdate = async (req,res,next) => {
         res.status(500).json({error:"Internal Server Error"});
     }
 }
+
+exports.verifyUpdate1 = async (req, res, next) => {
+    try {
+      const { tutor_id } = req.query;
+      const { verification } = req.body;
+      const updateOne = await TeacherService.verificationUpdate(tutor_id, verification);
+  
+      // Fetch the tutor's email address
+      const tutor = await TeacherModel.findOne({ tutor_id });
+      if (!tutor) {
+        return res.status(404).json({ error: 'Tutor not found' });
+      }
+      const tutorEmail = tutor.email; // Adjust based on your model's structure
+  
+      // Send email notification with the comment
+      const subject = 'Tutor Verification Status';
+      const text = `Your tutor verification status has been rejected. `;
+      await sendEmail(tutorEmail, subject, text);
+  
+      res.status(200).json(updateOne);
+    } catch (error) {
+      console.error('Error in verifyUpdate1:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
 
 exports.statusUpdate = async (req,res,next) => {
     try {

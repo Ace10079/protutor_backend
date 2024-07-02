@@ -103,6 +103,7 @@ router.put("/teacherPasswordChange", teacherController.changePassword);
 router.delete("/teacherDelete", teacherController.teacherDelete);
 router.put("/creditUpdate", teacherController.creditUpdate);
 router.put("/verifyUpdate", teacherController.verifyUpdate);
+router.put("/verifyUpdate1", teacherController.verifyUpdate1);
 router.put("/statusUpdate", teacherController.statusUpdate);
 router.put("/teacherReset", teacherController.teacherReset);
 router.post("/teacherVerifyPhone", teacherController.verfityPhone);
@@ -175,6 +176,7 @@ router.post("/feedback", feadbackController.feadback);
 router.post("/documents", documents, DocumentsController.documents);
 router.get("/getdocument", DocumentsController.get);
 router.put("/commentUpdate", DocumentsController.CommentUpdate);
+router.put("/email", DocumentsController.verifyUpdate1);
 router.put("/docsupdate", documents, DocumentsController.updateDocs);
 
 // Parent Viewed routes:-
