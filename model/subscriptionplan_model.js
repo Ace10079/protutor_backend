@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const db = require('../config/db');
 
+
 const {Schema} = mongoose;
 
 const SubscriptionSchema = new Schema({
@@ -14,7 +15,7 @@ const SubscriptionSchema = new Schema({
     },
     planimage : {
         type : String,
-        default : " ",
+        required : true,
     },
     plancost : {
         type :String,

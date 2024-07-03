@@ -23,6 +23,18 @@ class PlanServices {
         }
     }
 
+    static async update(plan_id,plan_name,plancost,count){
+        try {
+            var query = {plan_id : plan_id};
+            var values = {$set : {plan_name : plan_name ,plancost : plancost,count : count}};
+            
+            return await PlanModel.updateOne(query,values)
+            
+        } catch (error) {
+           throw error 
+        }
+    }
+
     static async getplan(){
         try {
            

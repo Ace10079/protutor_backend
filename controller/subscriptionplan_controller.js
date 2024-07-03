@@ -23,6 +23,17 @@ exports.plan = async (req, res, next) => {
     }
 }
 
+exports.Update = async (req,res, next) => {
+  try {
+      const { plan_id,plan_name,plancost,count} = req.body;
+      const updateData = await PlanServices.update(plan_id,plan_name,plancost,count);
+      res.status(200).json(updateData)
+  } catch (error) {
+      next (error);
+  }
+
+}
+
   exports.getplan = async (req,res,next) =>{
     try {
        const getData = await PlanServices.getplan();

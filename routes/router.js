@@ -119,6 +119,7 @@ router.delete("/categoriesDelete", categoriesController.delete);
 // Subscription Plan routes:-
 router.post("/plan", plan, PlanController.plan);
 router.get("/getplans", PlanController.getplan);
+router.put("/updateplans",PlanController.Update);
 router.delete("/deleteplan", PlanController.delete);
 
 // Parent Subscription routes:-
