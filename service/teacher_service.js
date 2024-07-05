@@ -41,6 +41,13 @@ class TeacherService {
 
     static async teacherUpdate(tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio, filename) {
         try {
+            const teacher = await TeacherModel.findOne({ tutor_id });
+            if (!teacher) {
+                throw new Error("Teacher not found");
+            }
+    
+            const oldImage = teacher.teacherimage;
+    
             var query = { tutor_id: tutor_id };
             var values = {
                 $set: {
@@ -52,21 +59,22 @@ class TeacherService {
                     address: address,
                     state: state,
                     postcode: postcode,
-                    password: password,
                     subject: subject,
                     experience: experience,
                     qualification: qualification,
                     bio: bio,
-                    verification: verification,
-                    credits: credits,
                     teacherimage: filename 
                 }
             };
-            return await TeacherModel.updateOne(query, values);
+    
+            const updatedTeacher = await TeacherModel.updateOne(query, values);
+    
+            return { updatedTeacher, oldImage };
         } catch (error) {
             throw error;
         }
     }
+    
     static async creditsUpdate(tutor_id,credits){
         try {
             var query = {tutor_id:tutor_id};

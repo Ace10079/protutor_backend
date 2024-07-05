@@ -2,6 +2,8 @@ const TeacherModel = require("../model/teacher_model");
 const TeacherService = require("../service/teacher_service");
 const bcrypt = require('bcrypt');
 const sendEmail = require("../utils/email");
+const path = require('path');
+const fs = require('fs');
 
 
 exports.teacherregister = async (req,res,next) => {
@@ -60,17 +62,30 @@ exports.teacherLogin = async (req,res,next)=>{
 
 exports.teacherUpdate = async (req, res, next) => {
     try {
-        const { tutor_id, fname, lname, gender, email, phone, address, state, postcode,  subject, experience, qualification, bio} = req.body;
+        const { tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio } = req.body;
         const { filename } = req.file;
         
-        const updateData = await TeacherService.teacherUpdate(tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio,  filename);
+        const { updatedTeacher, oldImage } = await TeacherService.teacherUpdate(
+            tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio, filename
+        );
 
-        let data = {tutor_id,fname, lname,gender,email,phone,address,state,postcode,subject,experience,qualification,bio,teacherimage: filename};
-        
+        let data = {
+            tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio, teacherimage: filename
+        };
+
+        if (oldImage && oldImage.trim() !== '') {
+            const oldImagePath = path.join(__dirname, '../image', oldImage);
+            fs.unlink(oldImagePath, (err) => {
+                if (err) {
+                    console.error(`Error deleting old image file: ${err.message}`);
+                }
+            });
+        }
+
         res.status(200).json(data); 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error'});
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
@@ -137,8 +152,17 @@ exports.statusUpdate = async (req,res,next) => {
 exports.teacherDelete = async (req,res,next)=> {
     try {
        const {tutor_id:tutor_id } = req.query;
-       const Teacher = await TeacherService.deleteTeacher(tutor_id);
-       res.status(200).json({status:true,message:"Teacher Account is Deleted..",Teacher}); 
+       const data = await TeacherService.deleteTeacher(tutor_id);
+
+       if (data && data.teacherimage) {
+        const filePath = path.join(__dirname, '../image', data.teacherimage);
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error(`Error deleting file: ${err.message}`);
+            }
+        });
+    }
+       res.status(200).json({status:true,message:"Teacher Account is Deleted..",data}); 
     } catch (error) {
         throw error
     }
