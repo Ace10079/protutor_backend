@@ -59,7 +59,7 @@ const generateEmailContent = (status, comment) => {
   } else if (status === 'verified') {
     return `
       <p>Dear Tutor,</p>
-      <p>We are pleased to inform you that your tutor verification status has been approved successfully.</p>
+      <p>We are pleased to inform you that your tutor verification status has been approved.</p>
        <p>${commentText}</p>
       <p>If you have any questions or need further assistance, please feel free to contact us.</p>
       <p>Best regards,<br>ProTutor Team</p>

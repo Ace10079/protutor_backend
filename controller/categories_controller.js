@@ -1,4 +1,6 @@
 const CategoriesService = require("../service/categories_servide");
+const fs = require('fs');
+const path = require('path');
 
 
 exports.categories = async (req, res, next) => {
@@ -14,27 +16,6 @@ exports.categories = async (req, res, next) => {
     }
   };
 
-// exports.categories = async (req, res, next) => {
-//     try {
-//         const { subject } = req.body;
-//         const files = req.files; // Access multiple files using req.files
-//         let images = [];
-        
-//         // Create an array of promises to save each file
-//         const promises = files.map(async (file) => {
-//             const image = await CategoriesService.createCategories(subject, file.filename);
-//             images.push({ image: file.filename }); // Push each file's details to the images array
-//         });
-
-//         // Wait for all promises to resolve
-//         await Promise.all(promises);
-
-//         res.status(200).json({ subject: subject, images: images }); // Return all file details in the response
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-
 
 exports.update = async (req,res,next)=>{
     try {
@@ -49,8 +30,18 @@ exports.update = async (req,res,next)=>{
 exports.delete = async (req,res,next)=>{
     try {
      const { subject } = req.query;
-     const deleteData = await CategoriesService.delete(subject);
-     res.status(200).json({message:"Categoires Deleted",deleteData});   
+     const data = await CategoriesService.delete(subject);
+
+     if (data && data.categoryimage) {
+        const filePath = path.join(__dirname, '../image', data.categoryimage);
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error(`Error deleting file: ${err.message}`);
+            }
+        });
+    }
+
+     res.status(200).json({message:"Categoires Deleted",data});   
     } catch (error) {
         throw error
     }

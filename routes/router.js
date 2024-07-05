@@ -23,6 +23,7 @@ const viewParentController = require("../controller/viewParent_controller");
 const ViewStudentController = require("../controller/viewStudent_controller");
 const ViewTutorController = require("../controller/viewTutor_controller");
 const NotifyController = require("../controller/notify_controller");
+const BannerController = require("../controller/banner_controller");
 
 
 const storage = multer.diskStorage({
@@ -39,6 +40,7 @@ const upload = multer({ storage: storage }).single("Profile");
 const upload1 = multer({ storage: storage }).single("categoryimage");
 const plan = multer({ storage: storage }).single("planimage");
 const teacher = multer({ storage: storage }).single("teacherimage");
+const banner = multer({ storage: storage }).single("image");
 
 const documents = multer({ storage: storage }).fields([
   { name: "cv", maxCount: 1 },
@@ -194,6 +196,11 @@ router.get("/viewedTutor", ViewTutorController.get);
 
 // Notify routes:-
 router.get("/notify", NotifyController.get);
+
+// Banner routes
+router.post('/banner',banner,BannerController.createBanner);
+router.delete('/deletebanner',BannerController.delete);
+router.get('/getbanner',BannerController.get)
 
 
 module.exports = router;

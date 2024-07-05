@@ -28,7 +28,7 @@ class CategoriesService {
     static async delete(subject){
         try {
             var query = { subject:subject };
-            return await CategoriesModel.deleteMany(query);
+            return await CategoriesModel.findOneAndDelete(query);
         } catch (error) {
             throw error
         }
