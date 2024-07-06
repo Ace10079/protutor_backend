@@ -47,59 +47,66 @@ class VerificationService {
     }
   }
 
-  static async updatedocuments(
-    tutor_id,
-    cv,
-    certificate,
-    id_proof,
-    address_proof
-  ) {
-    try {
-      const update = await VerficationModel.findOneAndUpdate(
-        { tutor_id },
-        { $set: { cv, certificate, id_proof, address_proof } },
-        { new: true }
-      );
-      return update;
-    } catch (error) {
-      throw error;
+static async updatedocuments(tutor_id, cv, certificate, id_proof, address_proof) {
+        try {
+            const verification = await VerficationModel.findOne({ tutor_id });
+            if (!verification) {
+                throw new Error("Verification record not found");
+            }
+
+            const oldDocs = {
+                cv: verification.cv,
+                certificate: verification.certificate,
+                id_proof: verification.id_proof,
+                address_proof: verification.address_proof
+            };
+
+            const update = await VerficationModel.findOneAndUpdate(
+                { tutor_id },
+                { $set: { cv, certificate, id_proof, address_proof } },
+                { new: true }
+            );
+
+            return { update, oldDocs };
+        } catch (error) {
+            throw error;
+        }
     }
-  }
 
-  static async updatedocuments(
-    tutor_id,
-    cv,
-    certificate,
-    id_proof,
-    address_proof
-  ) {
-    try {
-      const updateQuery = { tutor_id };
-      const updateFields = {};
+  // static async updatedocuments(
+  //   tutor_id,
+  //   cv,
+  //   certificate,
+  //   id_proof,
+  //   address_proof
+  // ) {
+  //   try {
+  //     const updateQuery = { tutor_id };
+  //     const updateFields = {};
 
-      if (cv) {
-        updateFields.cv = cv;
-      }
-      if (certificate) {
-        updateFields.certificate = certificate;
-      }
-      if (id_proof) {
-        updateFields.id_proof = id_proof;
-      }
-      if (address_proof) {
-        updateFields.address_proof = address_proof;
-      }
+  //     if (cv) {
+  //       updateFields.cv = cv;
+  //     }
+  //     if (certificate) {
+  //       updateFields.certificate = certificate;
+  //     }
+  //     if (id_proof) {
+  //       updateFields.id_proof = id_proof;
+  //     }
+  //     if (address_proof) {
+  //       updateFields.address_proof = address_proof;
+  //     }
 
-      const update = await VerficationModel.findOneAndUpdate(
-        updateQuery,
-        { $set: updateFields },
-        { new: true }
-      );
-      return update;
-    } catch (error) {
-      throw error;
-    }
-  }
+  //     const update = await VerficationModel.findOneAndUpdate(
+  //       updateQuery,
+  //       { $set: updateFields },
+  //       { new: true }
+  //     );
+  //     return update;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 }
 
 module.exports = VerificationService;

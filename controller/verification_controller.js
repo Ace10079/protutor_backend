@@ -1,6 +1,8 @@
 const TeacherModel = require("../model/teacher_model");
 const VerificationService = require("../service/verification_service");
 const sendEmail = require("../utils/email");
+const path = require('path');
+const fs = require('fs');
 
 
 exports.documents = async (req, res, next) => {
@@ -107,18 +109,45 @@ exports.get = async (req, res, next) => {
 
 exports.updateDocs = async (req, res, next) => {
   try {
-    const { tutor_id } = req.query;
-    const { cv, certificate, id_proof, address_proof } = req.files;
+      const { tutor_id } = req.query;
+      const { cv, certificate, id_proof, address_proof } = req.files;
 
-    const update = await VerificationService.updatedocuments(
-      tutor_id,
-      cv ? cv[0].filename : null,
-      certificate ? certificate[0].filename : null,
-      id_proof ? id_proof[0].filename : null,
-      address_proof ? address_proof[0].filename : null
-    );
-    res.status(200).json(update);
+      const { update, oldDocs } = await VerificationService.updatedocuments(
+          tutor_id,
+          cv ? cv[0].filename : '',
+          certificate ? certificate[0].filename : '',
+          id_proof ? id_proof[0].filename : '',
+          address_proof ? address_proof[0].filename : ''
+      );
+
+      const data = {
+          tutor_id,
+          cv: cv ? cv[0].filename : oldDocs.cv,
+          certificate: certificate ? certificate[0].filename : oldDocs.certificate,
+          id_proof: id_proof ? id_proof[0].filename : oldDocs.id_proof,
+          address_proof: address_proof ? address_proof[0].filename : oldDocs.address_proof
+      };
+
+      // Function to unlink old document
+      const unlinkOldDoc = (oldDoc, newDoc) => {
+          if (oldDoc && oldDoc.trim() !== '' && oldDoc !== newDoc) {
+              const oldDocPath = path.join(__dirname, '../image', oldDoc);
+              fs.unlink(oldDocPath, (err) => {
+                  if (err) {
+                      console.error(`Error deleting old document file: ${err.message}`);
+                  }
+              });
+          }
+      };
+
+      // Unlink old documents
+      unlinkOldDoc(oldDocs.cv, cv ? cv[0].filename : null);
+      unlinkOldDoc(oldDocs.certificate, certificate ? certificate[0].filename : null);
+      unlinkOldDoc(oldDocs.id_proof, id_proof ? id_proof[0].filename : null);
+      unlinkOldDoc(oldDocs.address_proof, address_proof ? address_proof[0].filename : null);
+
+      res.status(200).json(data);
   } catch (error) {
-    next(error);
+      next(error);
   }
 };
