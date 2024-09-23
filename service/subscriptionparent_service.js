@@ -1,8 +1,5 @@
 const ParentPlanModel = require("../model/subscriptionparent_model");
 const IdcodeServices = require("./idcode_service");
-const pdf = require("html-pdf");
-const nodemailer = require("nodemailer");
-
 
 class ParentPlanServices {
   static async registerParentPlan(
