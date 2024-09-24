@@ -43,6 +43,7 @@ const upload1 = multer({ storage: storage }).single("categoryimage");
 const plan = multer({ storage: storage }).single("planimage");
 const teacher = multer({ storage: storage }).single("teacherimage");
 const banner = multer({ storage: storage }).single("image");
+const file = multer({ storage: storage }).single("file");
 
 const documents = multer({ storage: storage }).fields([
   { name: "cv", maxCount: 1 },
@@ -208,11 +209,13 @@ router.get('/getbanner',BannerController.get)
 router.post('/location',LocationController.register);
 router.get('/getlocation',LocationController.get);
 router.delete('/deletelocation',LocationController.delete);
+router.post('/uploadcsvlcn', file, LocationController.uploadCSV);
 
 // street
 router.post('/street',StreetController.register);
 router.get('/getstreet',StreetController.get);
 router.delete('/deletestreet',StreetController.delete);
+router.post('/uploadcsvstr', file, StreetController.uploadCSV);
 
 
 module.exports = router;

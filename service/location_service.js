@@ -28,6 +28,14 @@ class LocationServices{
         }
     }
 
+    static async bulkinsert(csvs){
+        try {
+            return await LocationModel.insertMany(csvs);
+        } catch (error) {
+            throw error;
+        }
+    }
+
   
 }
 module.exports = LocationServices;

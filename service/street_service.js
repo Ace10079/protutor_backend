@@ -28,6 +28,14 @@ class StreetServices{
         }
     }
 
+    static async bulkinsert(csvs){
+        try {
+            return await StreetModel.insertMany(csvs);
+        } catch (error) {
+            throw error;
+        }
+    }
+
   
 }
 module.exports = StreetServices;

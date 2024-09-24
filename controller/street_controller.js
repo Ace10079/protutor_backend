@@ -1,4 +1,7 @@
 const StreetServices = require("../service/street_service");
+const csvParser = require('csv-parser');
+const fs = require('fs');
+const path = require('path');
 
 exports.register = async (req, res, next) => {
     try {
@@ -31,4 +34,35 @@ exports.get = async(req,res,next) =>{
         
     }
 }
+
+
+exports.uploadCSV = async (req, res, next) => {
+    try {
+     
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+  
+      const csvs = [];
+      const filePath = path.join(__dirname, '../image', req.file.filename);
+      fs.createReadStream(filePath)
+        .pipe(csvParser())
+        .on('data', (row) => {
+          csvs.push(row);
+        })
+        .on('end', async () => {
+          try {
+            const result = await StreetServices.bulkinsert(csvs);
+            res.status(200).json(result);
+          } catch (error) {
+            next(error);
+          } finally {
+            // Remove the file after processing
+            fs.unlinkSync(filePath);
+          }
+        });
+    } catch (error) {
+      next(error);
+    }
+  };
 
