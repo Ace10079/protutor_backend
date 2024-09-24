@@ -24,6 +24,8 @@ const ViewStudentController = require("../controller/viewStudent_controller");
 const ViewTutorController = require("../controller/viewTutor_controller");
 const NotifyController = require("../controller/notify_controller");
 const BannerController = require("../controller/banner_controller");
+const LocationController = require('../controller/location_controller');
+const StreetController = require('../controller/street_controller');
 
 
 const storage = multer.diskStorage({
@@ -201,6 +203,16 @@ router.get("/notify", NotifyController.get);
 router.post('/banner',banner,BannerController.createBanner);
 router.delete('/deletebanner',BannerController.delete);
 router.get('/getbanner',BannerController.get)
+
+// location
+router.post('/location',LocationController.register);
+router.get('/getlocation',LocationController.get);
+router.delete('/deletelocation',LocationController.delete);
+
+// street
+router.post('/street',StreetController.register);
+router.get('/getstreet',StreetController.get);
+router.delete('/deletestreet',StreetController.delete);
 
 
 module.exports = router;
