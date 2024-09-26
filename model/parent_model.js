@@ -29,15 +29,24 @@ const parentSchema = new Schema({
     type: String,
     required: true,
   },
+  unitnumber: {
+    type: String,
+  },
   address: {
+    type: String,
+  },
+  location: {
+    type: String,
+  },
+  postcode: {
+    type: String,
+  },
+  city: {
     type: String,
   },
   state: {
     type: String,
     required: true,
-  },
-  postcode: {
-    type: String,
   },
   password: {
     type: String,

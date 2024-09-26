@@ -6,14 +6,14 @@ const TeacherService = require('../service/teacher_service');
 
 exports.studentRegister = async (req,res,next) =>{
     try {
-        const { student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode,password,credits } = req.body;
+        const { student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,unitnumber,address,location,city,state,postcode,password,credits } = req.body;
         const student = await StudentService.checkuser(email);
         if(student){
             return res.status(401).json({message:"Email is already registered"});
         }
         
-        const successRes = await StudentService.studentRegister(fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode,password,credits);
-        let data = {student_id:successRes.student_id,fname:fname,lname:lname,gender:gender,dob:dob,grade:grade,email:email,phone:phone,subject:subject,tution_slot:tution_slot,gname:gname,gphone:gphone,address:address,state:state,postcode:postcode,password:password,credits:credits}
+        const successRes = await StudentService.studentRegister(fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,unitnumber,address,location,city,state,postcode,password,credits);
+        let data = {student_id:successRes.student_id,fname:fname,lname:lname,gender:gender,dob:dob,grade:grade,email:email,phone:phone,subject:subject,tution_slot:tution_slot,gname:gname,gphone:gphone,unitnumber:unitnumber,address:address,location:location,city:city,state:state,postcode:postcode,password:password,credits:credits}
         console.log(successRes); 
         res.status(200).json({status:true,success:"Students Registered Successfully",data});
         
@@ -46,7 +46,10 @@ exports.studentLogin = async (req,res,next)=>{
             password:student.password,
             postcode:student.postcode,
             state:student.state,
+            unitnumber:student.unitnumber,
             address:student.address,
+            location:student.location,
+            city:student.city,
             gphone:student.gphone,
             grade:student.grade,
             subject:student.subject,
@@ -63,8 +66,8 @@ exports.studentLogin = async (req,res,next)=>{
 
 exports.studentsUpdate = async (req,res,next)=>{
     try {
-        const {student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode } = req.body;
-        const updateData = await StudentService.studentUpdate(student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,address,state,postcode);
+        const {student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,unitnumber,address,location,city,state,postcode } = req.body;
+        const updateData = await StudentService.studentUpdate(student_id,fname,lname,gender,dob,grade,email,phone,subject,tution_slot,gname,gphone,unitnumber,address,location,city,state,postcode);
         res.status(200).json(updateData);   
     } catch (error) {
         throw error

@@ -8,14 +8,14 @@ const fs = require('fs');
 
 exports.teacherregister = async (req,res,next) => {
     try {
-        const { tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status } = req.body;
+        const { tutor_id,fname,lname,gender,email,phone,unitnumber,address,location,city,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status } = req.body;
         //const { filename } = req.file; 
         const teacher = await TeacherService.checkuser(email);
         if(teacher){
             return res.status(401).json({message:"Email is Already registered"});
         }
-        const successRes = await TeacherService.teacherregister(fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status);
-        let data = {tutor_id:successRes.tutor_id,fname: fname, lname: lname,gender:gender,email:email,phone: phone,address: address,state: state,postcode: postcode,password: password,subject: subject,experience:experience,qualification: qualification,bio:bio,verification:verification,teacherimage : teacherimage,credits:credits,status:status};
+        const successRes = await TeacherService.teacherregister(fname,lname,gender,email,phone,unitnumber,address,location,city,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status);
+        let data = {tutor_id:successRes.tutor_id,fname: fname, lname: lname,gender:gender,email:email,phone: phone,unitnumber: unitnumber,address: address,location:location,city:city,state: state,postcode: postcode,password: password,subject: subject,experience:experience,qualification: qualification,bio:bio,verification:verification,teacherimage : teacherimage,credits:credits,status:status};
         console.log(successRes);
         res.status(200).json({status: true,success:"Teacher Registered Successfully",data});
     } catch (error) {
@@ -44,6 +44,9 @@ exports.teacherLogin = async (req,res,next)=>{
             password:teacher.password,
             postcode:teacher.postcode,
             state:teacher.state,
+            unitnumber:teacher.unitnumber,
+            location:teacher.location,
+            city: teacher.city,
             address:teacher.address,
             qualification:teacher.qualification,
             experience:teacher.experience,
@@ -62,15 +65,15 @@ exports.teacherLogin = async (req,res,next)=>{
 
 exports.teacherUpdate = async (req, res, next) => {
     try {
-        const { tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio } = req.body;
+        const { tutor_id, fname, lname, gender, email, phone, unitnumber,address, location,city,state, postcode, subject, experience, qualification, bio } = req.body;
         const { filename } = req.file;
         
         const { updatedTeacher, oldImage } = await TeacherService.teacherUpdate(
-            tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio, filename
+            tutor_id, fname, lname, gender, email, phone, unitnumber,address, location,city,state, postcode, subject, experience, qualification, bio, filename
         );
 
         let data = {
-            tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio, teacherimage: filename
+            tutor_id, fname, lname, gender, email, phone, unitnumber,address, location,city, state, postcode, subject, experience, qualification, bio, teacherimage: filename
         };
 
         if (oldImage && oldImage.trim() !== '') {

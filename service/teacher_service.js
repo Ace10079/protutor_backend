@@ -5,10 +5,10 @@ const bcrypt = require('bcrypt');
 
 
 class TeacherService {
-    static async teacherregister(fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status){
+    static async teacherregister(fname,lname,gender,email,phone,unitnumber,address,location,city,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status){
         try {
             var tutor_id = await IdcodeServices.generateCode("teacher");
-            const createUser = new TeacherModel({tutor_id,fname,lname,gender,email,phone,address,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status});
+            const createUser = new TeacherModel({tutor_id,fname,lname,gender,email,phone,unitnumber,address,location,city,state,postcode,password,subject,experience,qualification,bio,verification,teacherimage,credits,status});
             return await createUser.save();
         } catch (error) {
             throw error;
@@ -39,7 +39,7 @@ class TeacherService {
         }
     }
 
-    static async teacherUpdate(tutor_id, fname, lname, gender, email, phone, address, state, postcode, subject, experience, qualification, bio, filename) {
+    static async teacherUpdate(tutor_id, fname, lname, gender, email, phone, unitnumber,address, location,city,state, postcode, subject, experience, qualification, bio, filename) {
         try {
             const teacher = await TeacherModel.findOne({ tutor_id });
             if (!teacher) {
@@ -56,7 +56,10 @@ class TeacherService {
                     gender: gender,
                     email: email,
                     phone: phone,
+                    unitnumber: unitnumber,
                     address: address,
+                    location:location,
+                    city:city,
                     state: state,
                     postcode: postcode,
                     subject: subject,

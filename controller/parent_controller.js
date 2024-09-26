@@ -5,15 +5,15 @@ const ParentModel = require('../model/parent_model');
 
 exports.register = async (req,res, next)=> {
     try {
-        const { parent_id,fname,laname,gender,email,phone,address,state,postcode,password,kidname,grade,subject,tution_slot,credits } = req.body;
+        const { parent_id,fname,laname,gender,email,phone,unitnumber,address,location,city,state,postcode,password,kidname,grade,subject,tution_slot,credits } = req.body;
        
 
         const parent =  await ParentService.checkuser(email);
         if(parent){
             return res.status(401).json({message:"Email already exits"});
         }
-            const successRes = await ParentService.registerUser(fname,laname,gender,email,phone,address,state,postcode,password,kidname,grade,subject,tution_slot,credits);
-           let data = {parent_id:successRes.parent_id,fname: fname, laname: laname,gender:gender,email:email,phone: phone,address: address,state: state,postcode: postcode,password: password,kidname: kidname,grade: grade,subject: subject,tution_slot: tution_slot,credits : credits}
+            const successRes = await ParentService.registerUser(fname,laname,gender,email,phone,unitnumber,address,location,city,state,postcode,password,kidname,grade,subject,tution_slot,credits);
+           let data = {parent_id:successRes.parent_id,fname: fname, laname: laname,gender:gender,email:email,phone: phone,unitnumber:unitnumber,address: address,location:location,city:city,state: state,postcode: postcode,password: password,kidname: kidname,grade: grade,subject: subject,tution_slot: tution_slot,credits : credits}
             console.log(successRes);
                res.status(200).json({status:true,success:"User Registered SuccessFully",data});
         
@@ -46,7 +46,10 @@ exports.parentLogin = async (req,res, next) =>{
             password:parent.password,
             postcode:parent.postcode,
             state:parent.state,
+            unitnumber:parent.unitnumber,
             address:parent.address,
+            location:parent.location,
+            city: parent.city,
             kidname:parent.kidname,
             grade:parent.grade,
             subject:parent.subject,
@@ -62,9 +65,9 @@ exports.parentLogin = async (req,res, next) =>{
 
 exports.parentUpdate = async (req,res,next)=>{
     try {
-        const {parent_id,fname,laname,gender,email,phone,address,state,postcode,kidname,grade,subject,tution_slot } = req.body;
+        const {parent_id,fname,laname,gender,email,phone, unitnumber,address,location,city,state,postcode,kidname,grade,subject,tution_slot } = req.body;
         
-        const successRes = await ParentService.updateParent(parent_id,fname,laname,gender,email,phone,address,state,postcode,kidname,grade,subject,tution_slot);
+        const successRes = await ParentService.updateParent(parent_id,fname,laname,gender,email,phone,unitnumber,address,location,city,state,postcode,kidname,grade,subject,tution_slot);
         res.status(200).json(successRes);
        
     } catch (error) {

@@ -52,7 +52,16 @@ const studentSchema = new Schema({
     type: String,
     required: true,
   },
+  unitnumber: {
+    type: String,
+  },
   address: {
+    type: String,
+  },
+  location: {
+    type: String,
+  },
+  city: {
     type: String,
   },
   state: {
