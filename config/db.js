@@ -1,9 +1,13 @@
-const mongoose = require('mongoose');
+require("dotenv").config(); // Load environment variables
+const mongoose = require("mongoose");
 
-const connection = mongoose.createConnection('mongodb://ProtutorAdmin:ProTutor2024@13.54.14.73:27017/tutor_finder?directConnection=true').on('open',() => {
+const connection = mongoose
+  .createConnection(process.env.MONGO_URI)
+  .on("open", () => {
     console.log("MongoDB Connected");
-}).on('error',() =>{
-    console.log("MongoDB Connection error");
-});
+  })
+  .on("error", (err) => {
+    console.log("MongoDB Connection error:", err);
+  });
 
 module.exports = connection;
